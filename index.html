@@ -14,7 +14,46 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-enhanced.css">
-  
+    
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              gold: {
+                50: '#fbf9eb',
+                100: '#f5efcd',
+                200: '#ebde9c',
+                300: '#dec564',
+                400: '#d0ab3c',
+                500: '#b9922e',
+                600: '#a17a26',
+                700: '#835f21',
+                800: '#6d4e20',
+                900: '#5c411f',
+                DEFAULT: '#d4af37'
+              },
+              space: {
+                950: '#0c0d10',
+                900: '#0e1014',
+                800: '#121318',
+                700: '#16181e',
+                DEFAULT: '#0c0d10'
+              }
+            },
+            fontFamily: {
+              sans: ['Cairo', 'Tajawal', 'ui-sans-serif', 'system-ui'],
+              serif: ['Amiri', 'serif'],
+              mono: ['Fira Code', 'monospace']
+            }
+          }
+        }
+      }
+    </script>
   <!-- Fallback for SVG Icons -->
   <style>
     .icon { width: 1em; height: 1em; vertical-align: -0.125em; fill: currentColor; }
@@ -128,54 +167,176 @@
   </section>
 
 
-    <section id="playlist-section" class="space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-white/5 pb-5">
-          <div class="space-y-1">
-            <span class="text-[10px] uppercase tracking-widest text-[#d4af37] font-mono font-bold block">مكتبة المقاطع المرئية الكاملة</span>
-            <h2 class="text-3xl font-serif text-white">
-              السيرة النبوية <span class="text-[#d4af37] font-sans text-lg opacity-80">(كاملة)</span>
-            </h2>
-            <p class="text-gray-400 text-sm max-w-xl font-serif">
-              سِلسلة فُجرت بأنوار المعرفة بالتفصيل والمنهج الموثق ريادة الأستاذ <strong>يوسف القط l Yousef Elkott</strong>.
-            </p>
-          </div>
 
-          <div class="flex flex-wrap gap-2 items-center">
-            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border bg-emerald-950/20 text-emerald-400 border-emerald-500/10 shadow-sm">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              بث مباشر متكامل (دون مفتاح API)
-            </div>
-            <div class="bg-[#16181e] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-gray-400 font-mono">
-              <span id="videos-count-badge" class="text-white font-bold">10 حلقة</span>
-            </div>
-          </div>
-        </div>
+    <!-- Glowing Background blobs -->
+    <div class="fixed top-[15%] left-[10%] w-[35rem] h-[35rem] bg-gold-900/5 blur-[160px] rounded-full pointer-events-none -z-10"></div>
+    <div class="fixed bottom-[10%] right-[5%] w-[40rem] h-[40rem] bg-emerald-950/10 blur-[180px] rounded-full pointer-events-none -z-10"></div>
 
-        <!-- Video loading skeleton -->
-        <div id="videos-loader" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
-          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
-          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
-          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
-        </div>
+    <!-- ============================================================================
+        MAIN LAYOUT WITH TITLE AND VIDEOS ONLY
+        ============================================================================ -->
+      
+      <!-- Elegant Header and centered Title block -->
+      <div  class="text-center py-6 space-y-4" style="background-color: var(--emerald)">
+        <h1 class="text-3xl sm:text-5xl font-serif font-bold text-white tracking-wide leading-tight">
+          السيرة النبوية الكبرى كاملة ﷺ
+        </h1>
+        <p class="text-sm text-gold-500 font-sans tracking-wide">البرنامج المرئي الكامل للأستاذ يوسف القط</p>
+      </div>
 
-        <!-- Dynamic video grid -->
-        <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Populated dynamically via Vanilla JS -->
-        </div>
-
-        <!-- Load More Button -->
-        <footer id="load-more-video-footer" class="pt-6 flex justify-center border-t border-white/5">
-          <button 
-            id="load-more-videos-btn"
-            class="bg-white/5 hover:bg-white/10 border border-white/20 px-12 py-3 rounded-full text-sm font-medium transition-all flex items-center gap-3 tracking-widest hover:border-[#d4af37]/30 text-white cursor-pointer"
-          >
-            عرض المزيد من حلقات السلسلة الكبرى
-            <svg class="w-4 h-4 text-[#d4af37] transition-transform rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <polyline points="9 18 15 12 9 6"></polyline>
+      <!-- Search & Filters Block -->
+      <div style="background-color: var(--emerald)" class=" mx-auto flex flex-col sm:flex-row items-center pb-8 border-b border-white/5">
+        <!-- Search Input -->
+        <div class="relative flex-1 w-full">
+          <span class="absolute right-4 top-3.5 text-gray-500">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
+          </span>
+          <input 
+            type="text" 
+            id="videos-local-search"
+            placeholder="ابحث بالحلقة أو العنوان أو الموضوع..."
+            class="w-full bg-black/50 text-sm rounded-xl px-12 py-3.5 text-white border border-white/10 outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-500/30 transition-all font-sans placeholder-gray-500 text-right pr-12 pl-4"
+          />
+        </div>
+        
+        <!-- Sorting -->
+        <select 
+          id="videos-local-sort"
+          class="bg-space-800 border border-white/10 text-xs rounded-xl px-4 py-3.5 text-white outline-none focus:border-gold transition-all block w-full sm:w-auto h-full select-none"
+        >
+          <option value="asc">ترتيب تصاعدي (من المقدمة)</option>
+          <option value="desc">ترتيب تنازلي (الأحدث أولاً)</option>
+        </select>
+      </div>
+
+      <!-- Playback Toggle Options -->
+     
+      <!-- ============================================================================
+          VIDEOS GRID SECTION
+          ============================================================================ -->
+      <section class="space-y-6 pt-4" style="background-color: var(--emerald)">
+        <!-- Local / Online loading status -->
+        <div id="elkott-sync-status" class="bg-gold/5 border border-gold/15 px-4 py-3 rounded-xl flex items-center justify-between text-xs text-gray-400 hidden">
+          <span class="flex items-center gap-2">
+            <span class="text-gold-500">✨</span>
+            <span id="sync-status-text">يتم الآن مزامنة وجلب أحدث المشاهدات من يوتيوب...</span>
+          </span>
+          <span class="font-mono text-[10px] text-gold-300">مباشر</span>
+        </div>
+
+        <!-- Video Cards Grid -->
+        <div id="elkott-video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Dynamic cards go here -->
+        </div>
+
+        <!-- Show More Button -->
+        <div id="elkott-load-more-container" class="pt-12 pb-4 flex justify-center items-center hidden">
+          <button 
+            id="btn-elkott-load-more" 
+            class="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold border border-gold/30 hover:border-gold/50 px-8 py-3.5 rounded-xl text-sm font-semibold transition-all shadow-lg active:scale-95 cursor-pointer"
+          >
+            <span>عرض المزيد من الحلقات</span>
+            <span>▼</span>
           </button>
-        </footer>
+        </div>
+
+        <!-- No matching elements statement -->
+        <div id="no-episodes-found" class="py-16 text-center text-gray-500 font-serif text-lg tracking-wide hidden">
+          لا توجد حلقات مطابقة للبحث الشريف في السلسلة الحالية... 
+          <button onclick="resetSearch()" class="text-gold border-b border-dashed border-gold/40 hover:text-white transition-colors cursor-pointer mr-1">إعادة الضبط</button>
+        </div>
       </section>
+
+    </main>
+
+    <!-- Simple, humble copyright layout -->
+   
+
+    <!-- ============================================================================
+        YOUTUBE MODAL PLAYER
+        ============================================================================ -->
+    <div id="elkott-player-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 hidden">
+      <div class="bg-space-950 border border-gold/30 rounded-2xl max-w-4xl w-full overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+        
+        <!-- Header -->
+        <div class="p-4 bg-space-800 border-b border-white/5 flex items-center justify-between gap-4">
+          <h4 id="elkott-player-title" class="text-base sm:text-lg font-serif font-bold text-white truncate pr-1">الحلقة</h4>
+          <button 
+            id="close-elkott-player"
+            class="bg-red-950/20 text-red-400 border border-red-900/40 hover:bg-red-900/60 transition-all w-8 h-8 rounded-full flex items-center justify-center text-xs cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+
+        <!-- Embedded Frame -->
+        <div class="aspect-video w-full bg-black relative">
+          <iframe 
+            id="elkott-player-iframe"
+            src=""
+            title="حلقة مرئية من السيرة"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            class="absolute inset-0 w-full h-full"
+          ></iframe>
+        </div>
+
+        <!-- Elegant playback restriction helper banner -->
+        <div class="px-6 py-3.5 bg-gold/5 border-t border-b border-gold/15 flex items-start sm:items-center gap-3 text-xs text-amber-100/90 leading-relaxed text-right font-sans">
+          <span class="text-base text-gold self-start sm:self-center">💡</span>
+          <div class="flex-1">
+            <span class="font-bold text-gold block sm:inline">تنبيه لضمان التشغيل:</span>
+            إذا واجهت "خطأ في مشغّل الفيديو" أو "الرمز 153" بسبب قيود الحماية والملاءمة أو حظر التشغيل الخارجي في متصفحك، يمكنك مشاهدة الحلقة بكل سهولة فوراً بالضغط على الزر الذهبي بالأسفل <strong class="text-gold">"مشاهدة على يوتيوب ↗"</strong> للتشغيل الآمن والمباشر مجاناً.
+          </div>
+        </div>
+
+        <!-- Footer Meta details -->
+        <div class="p-6 bg-[#0e1014] border-t border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs text-gray-400">
+          <div class="space-y-1 text-right">
+            <span id="player-meta-episode" class="text-gold font-bold">الحلقة والمقام</span>
+            <div class="flex flex-wrap gap-x-4 gap-y-1 items-center">
+              <span>الأستاذ الباحث: يوسف القط</span>
+              <span>|</span>
+              <span id="player-meta-duration">⏱ المدة: مجهولة</span>
+              <span>|</span>
+              <span id="player-meta-views">👁 المشاهدات: عالية</span>
+            </div>
+          </div>
+
+          <!-- Share / Open link buttons -->
+          <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+            <button 
+              id="btn-copy-video-link"
+              class="inline-flex items-center gap-1 bg-white/5 hover:bg-white/10 text-white px-3.5 py-2 rounded-lg text-xs leading-relaxed transition-all cursor-pointer border border-white/10"
+            >
+              نسخ رابط المشاركة 🔗
+            </button>
+            <a 
+              id="player-modal-yt-url"
+              href=""
+              target="_blank" 
+              rel="noreferrer"
+              class="inline-flex items-center gap-1.5 bg-gold/15 text-gold border border-gold/30 px-4 py-2 rounded-lg text-xs font-medium hover:bg-gold-500 text-black hover:text-black font-bold transition-all"
+            >
+              مشاهدة على يوتيوب ↗
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================================================
+        VANILLA JAVASCRIPT LOGIC
+        ============================================================================ -->
+
+  
+
+
 
   <!-- TIMELINE SECTION -->
   <section id="timeline">

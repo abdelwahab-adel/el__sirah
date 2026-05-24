@@ -754,3 +754,619 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch(e) {}
   }
 });
+
+
+      // 1. Core Video Dataset
+      const INITIAL_EPISODES = [
+        { 
+          id: "aLVD1uvQIVs", 
+          title: "قصة الرجل الذي حاول تدمير الكعبة.. من هو أبرهة ولماذا فعلها؟ | ج 1", 
+          duration: "15:01", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 1, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/aLVD1uvQIVs/hqdefault.jpg",
+          desc: "دراسة وثائقية وتحليل عميق لقصة أبرهة الحبشي ومحاولته هدم الكعبة والدروس العظيمة المستوحاة من هذا الحدث الجلل تمهيداً للمولد الشريف ﷺ."
+        },
+        { 
+          id: "DuSVU6tfPGY", 
+          title: "لحظة مؤثرة.. كيف خطب النبي خديجة؟ وماذا حدث بعد نزول الوحي؟ | ج 2", 
+          duration: "12:52", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 2, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/DuSVU6tfPGY/hqdefault.jpg",
+          desc: "تفاصيل خطبة الرسول الكريم للسيدة خديجة بنت خويلد رضي الله عنها، ملامح الأمانة وحدث نزول الوحي وبداية المسؤولية الكبرى."
+        },
+        { 
+          id: "MOeZ-VehEt8", 
+          title: "الرجل الذي تحدى النبي في أول الدعوة.. من هو؟! | ج 3", 
+          duration: "11:12", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 3, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/MOeZ-VehEt8/hqdefault.jpg",
+          desc: "عرض شيق لبيئة الدعوة السرية وتحدى الكبار في قريش واشتداد العواصف في بدايات بث نور الرسالة الخالدة."
+        },
+        { 
+          id: "MVHkNBjIxdg", 
+          title: "بعد وفاة ابن النبي.. رجل يشمت فيه، فتنزل آية تهز مكة! |ج 4", 
+          duration: "12:11", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 4, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/MVHkNBjIxdg/hqdefault.jpg",
+          desc: "وقائع نزول سورة الكوثر ودفاع الحق جل وعلا عن رسوله المختار مواساة لقلبه الطاهر في موقف عظيم سارت به الركبان."
+        },
+        { 
+          id: "PFnhwzbviPs", 
+          title: "مشهد مرعب عند الكعبة.. كاد النبي أن يموت مخنوقاً! | ج 5", 
+          duration: "10:58", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 5, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/PFnhwzbviPs/hqdefault.jpg",
+          desc: "استعراض لقمة الأذى الذي تعرض له الحبيب المصطفى وصبره العظيم والبطولة من سيدنا أبي بكر الصديق دفاعاً عن رسول الله ﷺ."
+        },
+        { 
+          id: "KXjyc-RjUI0", 
+          title: "كيف تحول عمر من أشد أعداء الإسلام.. إلى أعظم أنصاره؟! |ج 6", 
+          duration: "15:52", 
+          views: "مشاهدات عالية", 
+          date: "مؤخراً", 
+          episode: 6, 
+          author: "يوسف القط", 
+          img: "https://i.ytimg.com/vi/KXjyc-RjUI0/hqdefault.jpg",
+          desc: "قصة إسلام فاروق الأمة الفارقة سيدنا عمر بن الخطاب رضي الله عنه وكيف هز البكاء قلبه وعلا شأن المسلمين بجواره."
+        },
+        {
+          id: "sro2ECBKKRk",
+          title: "لماذا اعترفت قريش بالهزيمة ؟! | السيرة النبوية ج 7",
+          duration: "10:08",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 7,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/sro2ECBKKRk/hqdefault.jpg",
+          desc: "تحليل لأسباب اعتراف قريش الضمني بفشل مساعيها وإخفاق جهودها في تطويق الدعوة، وبداية مرحلة التفوق الإسلامي."
+        },
+        {
+          id: "rK6lvVhqABU",
+          title: "ليه بدأ تعذيب الصحابة بعد فشل مفاوضات قريش ؟! | ج 8",
+          duration: "16:03",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 8,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/rK6lvVhqABU/hqdefault.jpg",
+          desc: "تفاصيل بدء مرحلة الاضطهاد والتعذيب الوحشي لضعفاء الصحابة والعبيد عقيب انسداد الطرق الدبلوماسية والمفاوضات لقريش."
+        },
+        {
+          id: "_7JYecfz5Pk",
+          title: "9 محاولات لقتل النبي ﷺ وهذه كانت الأخطر! | ج 9",
+          duration: "18:31",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 9,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/_7JYecfz5Pk/hqdefault.jpg",
+          desc: "استعراض توثيقي مذهل للمؤامرات التسع التي حيكت لاغتيال النبي محمد ﷺ من كبار قريش، وتفاصيل المحاولة الأكثر دموية وخطورة."
+        },
+        {
+          id: "VIGCB_Fv3bo",
+          title: "عام الحزن.. أصعب أيام النبي ﷺ | ج 10",
+          duration: "15:23",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 10,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/VIGCB_Fv3bo/hqdefault.jpg",
+          desc: "تفاصيل العام الأشد ألماً في حياة المصطفى ﷺ برحيل عمه الحنون أبي طالب وزوجته الوفية السيدة خديجة رضي الله عنها."
+        },
+        {
+          id: "8r62KHENhtA",
+          title: "من جراح الطائف إلى عروج السماء .. رحلة الإسراء والمعراج كاملة | ج ١١",
+          duration: "20:28",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 11,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/8r62KHENhtA/hqdefault.jpg",
+          desc: "رحلة تفصيلية من مآسي الطائف وجراحه الدامية، إلى معجزة تطييب الخواطر الربانية في رحلة الإسراء والعرج لملائكية السموات."
+        },
+        {
+          id: "jpHi8sIXuS0",
+          title: "لماذا سُمي ابو بكر بهذا الاسم ؟ | ج 12",
+          duration: "12:27",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 12,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/jpHi8sIXuS0/hqdefault.jpg",
+          desc: "أصل تسمية الصديق رضي الله عنه بأبي بكر، وبداية إيمانه المطلق وملازمته الفاتنة للنبي الكريم في الشدة والرخاء."
+        },
+        {
+          id: "CwY6hkYaKMU",
+          title: "بداية طريق المدينة و من هم ال 6 شباب ؟ | ج 13",
+          duration: "10:17",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 13,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/CwY6hkYaKMU/hqdefault.jpg",
+          desc: "شرح اللبنات الأولى للهجرة المباركة وقصة الشباب الستة من يثرب الذين التقوا بموسم الحج وآمنوا فكانوا سفراء الهدى بالمدينة."
+        },
+        {
+          id: "-ucMDCs8XGs",
+          title: "الاجتماع السري تحت عيون قريش في الظلام | ج 14",
+          duration: "10:40",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 14,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/-ucMDCs8XGs/hqdefault.jpg",
+          desc: "مباحثات بيعة العقبة السرية في جوف الليل وتحت غطاء السرية التام لتأسيس الدولة الجديدة وميثاق النصرة العظيم للأوس والخزرج."
+        },
+        {
+          id: "zHuM6BIA51A",
+          title: "من هي أم سلمة ؟ | ج 15",
+          duration: "10:50",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 15,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/zHuM6BIA51A/hqdefault.jpg",
+          desc: "سيرة السيدة الجليلة أم سلمة رضي الله عنها، وقصة هجرتها المليئة بالصبر والألم والتضحية وفراق الأهل والزوج والولد."
+        },
+        {
+          id: "OrUellT-SeI",
+          title: "أخطر ليلة في التاريخ | ج 16",
+          duration: "10:17",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 16,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/OrUellT-SeI/hqdefault.jpg",
+          desc: "ليلة الهجرة الكبرى وتطويق الفتيان المسلحين لبيت النبوة، فدائية علي بن أبي طالب ومخرج النبي المعجز بمحيا صامت وغبار مهيب."
+        },
+        {
+          id: "6BHHkp-jRns",
+          title: "ماذا حدث داخل الغار و كيف لم يجدوا الرسول ؟! | ج 17",
+          duration: "11:51",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 17,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/6BHHkp-jRns/hqdefault.jpg",
+          desc: "تفاصيل أيام الاختباء الحرجة في غار ثور المعلق، طرائد الملاحقين وقدرة اللطف الإلهي الشافي «إذ يقول لصاحبه لا تحزن»."
+        },
+        {
+          id: "nOu810zGNK4",
+          title: "لحظة هجرة النبي مع ابا بكر و اكتشاف أمرهم !! | ج 18",
+          duration: "9:40",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 18,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/nOu810zGNK4/hqdefault.jpg",
+          desc: "تفاصيل السير الحثيث بالدروب الوعرة، ملاحقة سراقة بن مالك وعجائب ساخت بها أقدام فرسه في الصخور لتبهر من حوله."
+        },
+        {
+          id: "3WUxVcBlFEk",
+          title: "استقبال أهل المدينة للرسول | ج 19",
+          duration: "9:29",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 19,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/3WUxVcBlFEk/hqdefault.jpg",
+          desc: "مشاهد مبهجة تدمع لها العيون للمدينة وهي تتزين بالنشيد والحفاوة والفرح العظيم فور تبصر ركب الهادي المنتظر ﷺ في الأفق."
+        },
+        {
+          id: "1Zp8G-nxoUg",
+          title: "المدينة قبل الإسلام | ج 20",
+          duration: "14:23",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 20,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/1Zp8G-nxoUg/hqdefault.jpg",
+          desc: "دراسة تاريخية واجتماعية لأوضاع يثرب قبل مجيء الإسلام، التناحر الطويل للأوس والخزرج والوجود اليهودي وملامح الفكر هناك."
+        },
+        {
+          id: "qc9NHcL7YG0",
+          title: "نهاية أبو لهب علي يد أمراة | ج 21",
+          duration: "16:29",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 21,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/qc9NHcL7YG0/hqdefault.jpg",
+          desc: "سقوط العجرفة لأبي لهب بعد نكبة بدر ووفاته اللاحقة بمرض العدسة بسبب صدمات الوجع إثر ضربة الغلام وموت الشاة."
+        },
+        {
+          id: "-WxrWXoxNUg",
+          title: "كيف مات أبو جهل ؟ | ج 22",
+          duration: "21:53",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 22,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/-WxrWXoxNUg/hqdefault.jpg",
+          desc: "تفاصيل هلاك فرعون هذه الأمة عمرو بن هشام (أبو جهل) في يوم معركة بدر الكبرى على يد الصبية الشجعان ومصير كبره وتمرده."
+        },
+        {
+          id: "g_hhgh0Erd0",
+          title: "كيف مات حمزة ابن عبد المطلب بالتفصيل ؟ | ج 23",
+          duration: "25:42",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 23,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/g_hhgh0Erd0/hqdefault.jpg",
+          desc: "ملحمة غزوة أحد الدامية، واستشهاد العظيم أسد الله وحبيب الأمة حمزة بن عبد المطلب واغتيال وحشي وتأثير المصاب بقلب الهادي."
+        },
+        {
+          id: "z60sPkuFzSk",
+          title: "الغدر الآكبر الذي تعرض له المسلمين | ج 24",
+          duration: "23:22",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 24,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/z60sPkuFzSk/hqdefault.jpg",
+          desc: "تفاصيل يوم بئر معونة ويوم الرجيع، مآسي الغدر والتمثيل بالصحابة الكرام وحزن رسول الله غير المسبوق عليهم ودعائه الطويل بالقنوت."
+        },
+        {
+          id: "MJew12Jeuec",
+          title: "إتهموا زوجة الرسول إتهام شديد جداً | ج 25",
+          duration: "23:20",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 25,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/MJew12Jeuec/hqdefault.jpg",
+          desc: "تفاصيل حادثة الإفك الأليمة والافتراء على الطاهرة أم المؤمنين عائشة رضي الله عنها، حتى قضى الحق ببراءتها المبرمة بقرآن يتلى."
+        },
+        {
+          id: "-Jjy9WNvk4I",
+          title: "الليلة التي اتخرق فيها العهد و الدم اتسفك جوه الحرم | ج 26",
+          duration: "14:17",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 26,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/-Jjy9WNvk4I/hqdefault.jpg",
+          desc: "نقض قريش وحلفائها لصلح الحديبية الشائع وتعديهم على بني خزاعة تحت حماية الليل، والشرارة التي مهدت لزحف الفتح العظيم."
+        },
+        {
+          id: "5ryMz1imPXU",
+          title: "نهاية كبار قريش و تفاصيل فتح مكة | ج 27",
+          duration: "17:21",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 27,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/5ryMz1imPXU/hqdefault.jpg",
+          desc: "يوم الفتح الأعظم لدخول مكة برؤوس خاضعة وتواضع فريد، هدم الأصنام وإقرار الأمان الفاتن «اذهبوا فأنتم الطلقاء»."
+        },
+        {
+          id: "0gNbbcota-4",
+          title: "آخر لحظات في حياة الرسول ﷺ",
+          duration: "27:03",
+          views: "مشاهدات عالية",
+          date: "مؤخراً",
+          episode: 28,
+          author: "يوسف القط",
+          img: "https://i.ytimg.com/vi/0gNbbcota-4/hqdefault.jpg",
+          desc: "اللحظات الأخيرة الجليلة المليئة بالدموع والعبر في حياة أشرف وآخر الأنبياء والمرسلين والخطب الوداعية للقاء رفيق الأعلى الحبيب."
+        }
+      ];
+
+      let episodes = [...INITIAL_EPISODES];
+      let currentFilterString = "";
+      let currentSortDirection = "asc";
+      let visibleCount = 6;
+
+      // 2. Elements Cache
+      const grid = document.getElementById("elkott-video-grid");
+      const searchInput = document.getElementById("videos-local-search");
+      const sortSelect = document.getElementById("videos-local-sort");
+      const modal = document.getElementById("elkott-player-modal");
+      const modalIframe = document.getElementById("elkott-player-iframe");
+      const modalTitle = document.getElementById("elkott-player-title");
+      const modalMetaEpisode = document.getElementById("player-meta-episode");
+      const modalMetaDuration = document.getElementById("player-meta-duration");
+      const modalMetaViews = document.getElementById("player-meta-views");
+      const modalYtUrl = document.getElementById("player-modal-yt-url");
+      const copyBtn = document.getElementById("btn-copy-video-link");
+      const noEpisodesMessage = document.getElementById("no-episodes-found");
+      const syncStatus = document.getElementById("elkott-sync-status");
+      const syncStatusText = document.getElementById("sync-status-text");
+      const loadMoreContainer = document.getElementById("elkott-load-more-container");
+      const loadMoreBtn = document.getElementById("btn-elkott-load-more");
+
+      // 3. Render Cards Method
+      function renderEpisodes() {
+        // Initial filtering
+        let filtered = episodes.filter(ep => {
+          if (!currentFilterString) return true;
+          return ep.title.toLowerCase().includes(currentFilterString) || 
+                 (ep.desc && ep.desc.toLowerCase().includes(currentFilterString));
+        });
+
+        // Sorting
+        filtered.sort((a, b) => {
+          if (currentSortDirection === "asc") {
+            return a.episode - b.episode;
+          } else {
+            return b.episode - a.episode;
+          }
+        });
+
+        // Toggle statement
+        if (filtered.length === 0) {
+          noEpisodesMessage.classList.remove("hidden");
+          grid.innerHTML = "";
+          if (loadMoreContainer) loadMoreContainer.classList.add("hidden");
+          return;
+        } else {
+          noEpisodesMessage.classList.add("hidden");
+        }
+
+        // Slice to visibleCount
+        const sliceToRender = filtered.slice(0, visibleCount);
+
+        // Toggle Load More visibility
+        if (loadMoreContainer) {
+          if (filtered.length > visibleCount) {
+            loadMoreContainer.classList.remove("hidden");
+          } else {
+            loadMoreContainer.classList.add("hidden");
+          }
+        }
+
+        // Render loop
+        grid.innerHTML = sliceToRender.map((ep, index) => {
+          return `
+            <div 
+              class="relative bg-[#121318]/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl p-5 block group transition-all duration-300 transform cursor-pointer card-glow video-card-item"
+              data-index="${index}"
+              data-id="${ep.id}"
+            >
+              <!-- Image Banner with duration -->
+              <div class="aspect-video w-full rounded-xl overflow-hidden relative border border-white/5 bg-[#16181e] mb-4">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent z-10"></div>
+                
+                <!-- Episode Badge -->
+                <span class="absolute top-3 right-3 select-none text-[10px] bg-gold text-black font-extrabold px-3 py-1 rounded-full z-20 font-sans tracking-wide">
+                  الحلقة ${ep.episode}
+                </span>
+
+                <!-- Duration Indicator -->
+                <span class="absolute bottom-2 left-2 select-none text-[10px] bg-[#0c0d10]/95 border border-white/10 text-white font-semibold px-2 py-0.5 rounded font-mono z-20">
+                  ⏱ ${ep.duration}
+                </span>
+
+                <!-- Play Overlay effect -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 z-20">
+                  <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform duration-300 shadow-lg">
+                    <svg class="w-5 h-5 text-white mr-1" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Main Cover Image -->
+                <img 
+                  src="${ep.img}" 
+                  alt="${ep.title}" 
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Meta and description -->
+              <div class="space-y-2 text-right">
+                <div class="flex justify-between items-center text-[10px] text-gray-500 font-mono">
+                  <span class="text-gold-400 font-bold font-serif">بواسطة يوسف القط</span>
+                  <span>👁 ${ep.views}</span>
+                </div>
+
+                <h4 class="text-base font-serif text-white group-hover:text-gold transition-colors font-semibold leading-relaxed line-clamp-2">
+                  ${ep.title}
+                </h4>
+
+                <p class="text-xs text-gray-400 font-serif leading-relaxed line-clamp-3">
+                  ${ep.desc || "تفاصيل ممتازة وشرح مسهب وممتع لوقائع وحياة حبيب الأمة العظيم ومكارم أخلاقه الشامخة."}
+                </p>
+              </div>
+
+              <!-- Hover Link Highlight bottom -->
+              <div class="border-t border-white/5 pt-3 mt-3 flex justify-between items-center text-[11px] text-gold/80 group-hover:text-gold transition-colors font-sans">
+                <span>ابدأ المشاهدة الفاخرة الآن</span>
+                <span class="text-xs">◀</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // 4. Reset Filters
+      window.resetSearch = function() {
+        searchInput.value = "";
+        currentFilterString = "";
+        visibleCount = 6;
+        renderEpisodes();
+      };
+
+      // 5. Setup Live Scraper Fetch Pipeline (Synchronized views, actual title and durations)
+      async function syncYouTubeData() {
+        try {
+          syncStatus.classList.remove("hidden");
+          const response = await fetch("/api/playlist");
+          if (!response.ok) throw new Error("Could not fetch playlist data from internal scraper.");
+          
+          const result = await response.json();
+          if (result.status === "success" && Array.isArray(result.data) && result.data.length > 0) {
+            
+            // Map descriptions to fetched elements to maintain visual completeness
+            episodes = result.data.map((liveItem, index) => {
+              const localMatch = INITIAL_EPISODES.find(x => x.episode === liveItem.episode);
+              return {
+                id: liveItem.id,
+                title: liveItem.title,
+                duration: liveItem.duration,
+                views: liveItem.views,
+                date: liveItem.date,
+                episode: liveItem.episode,
+                author: liveItem.author || "يوسف القط",
+                img: liveItem.img || `https://i.ytimg.com/vi/${liveItem.id}/hqdefault.jpg`,
+                desc: localMatch ? localMatch.desc : "شرح مستنير لدرس السيرة العطرة."
+              };
+            });
+
+            // Update stats
+            const statsEp = document.getElementById("stats-episodes");
+            if (statsEp) statsEp.innerText = `${episodes.length} حلقات`;
+            
+            // Compute composite approximate views count or just display top-performing indicator
+            const statsVi = document.getElementById("stats-views");
+            if (statsVi) statsVi.innerText = `ملايين المشاهدات`;
+
+            syncStatusText.innerHTML = "تم جلب وتحديث السلسلة مباشرة من يوتيوب بنجاح! المشاهدات والعناوين دقيقة الآن.";
+            setTimeout(() => {
+              syncStatus.classList.add("hidden");
+            }, 6000);
+
+            renderEpisodes();
+          } else {
+            throw new Error("Scraper data format invalid.");
+          }
+        } catch (error) {
+          console.warn("YouTube live sync pipeline returned issue; rendering static fallback.", error);
+          syncStatusText.innerHTML = "معطيات مأخوذة من الكاش المحلي بنجاح (المزامنة معطلة مؤقتاً).";
+          setTimeout(() => {
+            syncStatus.classList.add("hidden");
+          }, 3000);
+        }
+      }
+
+      // 6. Dynamic Modal Operation
+      let activeCopiedId = "";
+      window.openVideo = function(id, title, episodeNum, duration, views) {
+        activeCopiedId = id;
+        modalTitle.innerText = title;
+        modalMetaEpisode.innerText = `السيرة النبوية الكبرى | الحلقة رقم ${episodeNum}`;
+        modalMetaDuration.innerText = `⏱ المدة: ${duration}`;
+        modalMetaViews.innerText = `👁 المشاهدات: ${views}`;
+        modalYtUrl.href = `https://www.youtube.com/watch?v=${id}&list=PL6mMw2piuhMxbpKYpsQmHAprcqBchpd-F`;
+        
+        modalIframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // Disable scroll
+      };
+
+      function closeVideo() {
+        modal.classList.add("hidden");
+        modalIframe.src = "";
+        document.body.style.overflow = ""; // Enable scroll
+      }
+
+      document.getElementById("close-elkott-player").addEventListener("click", closeVideo);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeVideo();
+      });
+
+      // Grid click event delegation to avoid HTML quotation escaping issues across platforms
+      grid.addEventListener("click", (e) => {
+        const card = e.target.closest(".video-card-item");
+        if (card) {
+          const videoId = card.getAttribute("data-id");
+          if (videoId) {
+            const ep = episodes.find(x => x.id === videoId);
+            if (ep) {
+              const preferDirectInput = document.getElementById("prefer-direct-youtube");
+              if (preferDirectInput && preferDirectInput.checked) {
+                const link = document.createElement("a");
+                link.href = `https://www.youtube.com/watch?v=${ep.id}`;
+                link.target = "_blank";
+                link.rel = "noreferrer";
+                link.click();
+              } else {
+                window.openVideo(ep.id, ep.title, ep.episode, ep.duration, ep.views);
+              }
+            }
+          }
+        }
+      });
+
+      // 7. Copy shareable link
+      copyBtn.addEventListener("click", () => {
+        if (!activeCopiedId) return;
+        const shareUrl = `https://www.youtube.com/watch?v=${activeCopiedId}`;
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          copyBtn.innerText = "تم نسخ الرابط بنجاح! ✓";
+          copyBtn.classList.remove("bg-white/5", "text-white");
+          copyBtn.classList.add("bg-emerald-950/40", "text-emerald-400", "border-emerald-500/20");
+          setTimeout(() => {
+            copyBtn.innerText = "نسخ رابط المشاركة 🔗";
+            copyBtn.classList.add("bg-white/5", "text-white");
+            copyBtn.classList.remove("bg-emerald-950/40", "text-emerald-400", "border-emerald-500/20");
+          }, 2000);
+        });
+      });
+
+      // 8. Viewport and back to top listeners
+      const backToTopBtn = document.getElementById("btn-back-to-top");
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      // 9. Interactive Local Listeners
+      searchInput.addEventListener("input", (e) => {
+        currentFilterString = e.target.value.toLowerCase().trim();
+        visibleCount = 6;
+        renderEpisodes();
+      });
+
+      sortSelect.addEventListener("change", (e) => {
+        currentSortDirection = e.target.value;
+        visibleCount = 6;
+        renderEpisodes();
+      });
+
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", () => {
+          visibleCount += 6;
+          renderEpisodes();
+        });
+      }
+
+      // 10. Initialise
+      function initElkott() {
+        const preferDirectInput = document.getElementById("prefer-direct-youtube");
+        if (preferDirectInput) {
+          preferDirectInput.checked = localStorage.getItem("prefer-direct-youtube") === "true";
+          preferDirectInput.addEventListener("change", (e) => {
+            localStorage.setItem("prefer-direct-youtube", e.target.checked);
+          });
+        }
+        renderEpisodes();
+        syncYouTubeData();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initElkott);
+      } else {
+        initElkott();
+      }
+    
