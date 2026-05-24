@@ -1,206 +1,357 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>السيرة النبوية الشريفة ﷺ</title>
-<meta name="description" content="منصة تفاعلية شاملة للتعرف على سيرة خاتم الأنبياء والمرسلين محمد ﷺ">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>السيرة النبوية الشريفة ﷺ</title>
+  <meta name="description" content="منصة إسلامية تفاعلية شاملة للتعرف على سيرة خاتم الأنبياء والمرسلين محمد ﷺ، الغزوات، الشمائل، الأحاديث، والصحابة.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style-enhanced.css">
+  
+  <!-- Fallback for SVG Icons -->
+  <style>
+    .icon { width: 1em; height: 1em; vertical-align: -0.125em; fill: currentColor; }
+  </style>
 </head>
 <body>
 
-<!-- Welcome Overlay -->
-<div class="welcome-overlay" id="welcomeOverlay">
-  <div class="welcome-ornament">✦ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ✦</div>
-  <div class="welcome-text" id="welcomeTyping"></div>
-  <div class="welcome-sub">رحلة روحانية في حياة خير الأنام ﷺ</div>
-  <button class="welcome-btn" id="welcomeBtn" onclick="closeWelcome()">ابدأ الرحلة ✨</button>
-</div>
+  <!-- Reading Progress -->
+  <div id="reading-progress"></div>
 
-<!-- Navigation -->
-<nav>
-  <div class="nav-logo">السيرة النبوية ﷺ</div>
-  <div class="nav-links" id="navLinks">
-    <a onclick="goTo('hero')">الرئيسية</a>
-    <a onclick="goTo('timeline')">الخط الزمني</a>
-    <a onclick="goTo('listen')">الاستماع</a>
-    <a onclick="goTo('ghazawat')">الغزوات</a>
-    <a onclick="goTo('shamail')">الشمائل</a>
-    <a onclick="goTo('hadith')">الأحاديث</a>
-    <a onclick="goTo('daily')">حكمة اليوم</a>
-    <a onclick="goTo('search-sec')">البحث</a>
+  <!-- Welcome Overlay -->
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-particles"></div>
+    <div class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="welcome-ornament">✦ ✦ ✦</div>
+    <div class="welcome-text" id="welcomeTyping"></div>
+    <div class="welcome-sub">رحلة روحانية وتفاعلية في مسيرة خير الأنام ﷺ</div>
+    <button class="welcome-btn" id="welcomeBtn" onclick="closeWelcome()">ابدأ الرحلة ✨</button>
   </div>
-  <div class="nav-toggle" onclick="toggleNav()">
-    <span></span><span></span><span></span>
-  </div>
-</nav>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-bg">
-    <svg class="hero-ornament" style="top:8%;right:4%;width:180px;height:180px;" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="90,8 108,52 156,52 120,80 134,124 90,97 46,124 60,80 24,52 72,52" fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.35)" stroke-width="1"/>
-      <circle cx="90" cy="90" r="55" fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="1"/>
-      <circle cx="90" cy="90" r="36" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="1" stroke-dasharray="4,4"/>
-    </svg>
-    <svg class="hero-ornament" style="bottom:12%;left:4%;width:140px;height:140px;opacity:0.05;" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="70,5 84,44 126,44 93,68 105,107 70,83 35,107 47,68 14,44 56,44" fill="rgba(212,175,55,0.2)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
-    </svg>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">◆ نور النبوة ◆</div>
-    <h1 class="hero-title">
-      السيرة النبوية<br><span class="gold">نور يهدي القلوب</span>
-    </h1>
-    <p class="hero-sub">رحلة تفاعلية في حياة رسول الله ﷺ منذ الميلاد وحتى الرحيل، تعمّق في أحداثها واستمع إلى البيان الشريف</p>
-    <div class="hero-btns">
-      <button class="btn-primary" onclick="goTo('timeline')">⬇ ابدأ الرحلة</button>
-      <button class="btn-secondary" onclick="goTo('listen')">🎙 استمع للسيرة</button>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-logo" onclick="goTo('hero')">السيرة النبوية ﷺ</div>
+    <div class="nav-links" id="navLinks">
+      <a onclick="goTo('hero')" class="active">الرئيسية</a>
+      <a onclick="goTo('timeline')">الخط الزمني</a>
+      <a onclick="goTo('listen')">الاستماع</a>
+      <a onclick="goTo('ghazawat')">الغزوات</a>
+      <a onclick="goTo('sahaba')">الصحابة</a>
+      <a onclick="goTo('shamail')">الشمائل</a>
+      <a onclick="goTo('hadith')">الأحاديث</a>
+      <a onclick="goTo('daily')">حكمة اليوم</a>
     </div>
-  </div>
-  <div class="scroll-hint">↓ مرر للأسفل</div>
-</section>
-
-<!-- TIMELINE -->
-<section id="timeline">
-  <div class="container">
-    <h2 class="section-title">الخط الزمني للسيرة النبوية</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">رحلة المصطفى ﷺ من الميلاد إلى الرحيل</p>
-    <div class="timeline-wrap" id="timelineWrap"></div>
-  </div>
-</section>
-
-<!-- LISTEN -->
-<section id="listen" class="pattern-bg">
-  <div class="container">
-    <h2 class="section-title">قسم الاستماع</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">استمع إلى محطات السيرة والقرآن والأذكار</p>
-    <div class="listen-controls">
-      <input class="search-box" id="stationSearch" placeholder="ابحث عن محطة..." oninput="filterStations()">
-      <select class="filter-select" id="catFilter" onchange="filterStations()">
-        <option value="">جميع التصنيفات</option>
-      </select>
-    </div>
-    <div class="stations-grid" id="stationsGrid"></div>
-    <div class="now-playing" id="nowPlaying" style="display:none;">
-      <div class="np-info">
-        <div class="np-label">يُشغَّل الآن</div>
-        <div class="np-name" id="npName">—</div>
-      </div>
-      <div class="np-controls">
-        <button class="np-btn main" id="playPauseBtn" onclick="togglePlay()">▶</button>
-        <button class="np-btn" onclick="stopAudio()" title="إيقاف">■</button>
-      </div>
-      <div class="np-vol">
-        <span>🔊</span>
-        <input type="range" class="vol-slider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+    <div class="nav-actions">
+      <button class="nav-search-btn" onclick="goTo('search-sec')" title="بحث (Ctrl+K)">🔍</button>
+      <button class="theme-toggle" title="تبديل الوضع الليلي">🌙</button>
+      <div class="nav-toggle" onclick="toggleNav()">
+        <span></span><span></span><span></span>
       </div>
     </div>
-    <audio id="audioPlayer" onplay="onAudioPlay()" onpause="onAudioPause()"></audio>
-  </div>
-</section>
+  </nav>
 
-<!-- GHAZAWAT -->
-<section id="ghazawat">
-  <div class="container">
-    <h2 class="section-title">غزوات النبي ﷺ</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">المواقف الكبرى في مسيرة الدعوة الإسلامية</p>
-    <div class="ghazawat-grid" id="ghazawatGrid"></div>
-  </div>
-</section>
-
-<!-- SHAMAIL -->
-<section id="shamail">
-  <div class="container">
-    <h2 class="section-title">الشمائل النبوية الشريفة</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">صفات وأخلاق سيد الخلق ﷺ</p>
-    <div class="shamail-grid" id="shamailGrid"></div>
-  </div>
-</section>
-
-<!-- HADITH -->
-<section id="hadith" class="pattern-bg">
-  <div class="container">
-    <h2 class="section-title">من أحاديث المصطفى ﷺ</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">نور الحديث النبوي الشريف</p>
-    <div class="hadith-grid" id="hadithGrid"></div>
-  </div>
-</section>
-
-<!-- DAILY -->
-<section id="daily">
-  <div class="container">
-    <h2 class="section-title">حكمة اليوم</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">يتجدد كل يوم بإذن الله</p>
-    <div class="daily-card">
-      <div class="daily-type" id="dailyType">حديث شريف</div>
-      <div class="daily-text" id="dailyText"></div>
-      <div class="daily-source" id="dailySource"></div>
-      <button class="daily-btn" onclick="loadDaily()">🔄 حكمة أخرى</button>
+  <!-- HERO SECTION -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-bg-mesh"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-stars"></div>
+    
+    <!-- SVG Islamic Ornaments -->
+    <div class="hero-ornament" style="top:10%; right:5%;">
+      <svg width="120" height="120" viewBox="0 0 100 100" fill="none" stroke="rgba(212,175,55,0.4)" stroke-width="0.5">
+        <polygon points="50,5 61,39 95,39 67,60 78,95 50,74 22,95 33,60 5,39 39,39"/>
+        <circle cx="50" cy="50" r="30" stroke-dasharray="4 4" />
+      </svg>
     </div>
-  </div>
-</section>
-
-<!-- SEARCH -->
-<section id="search-sec">
-  <div class="container">
-    <h2 class="section-title">البحث الذكي</h2>
-    <div class="gold-line"></div>
-    <p class="section-sub">ابحث في أحداث السيرة والغزوات والأحاديث والمحطات</p>
-    <div class="search-big">
-      <input type="text" id="mainSearch" placeholder="ابحث عن حدث، غزوة، حديث..." oninput="doSearch(this.value)">
-      <button onclick="doSearch(document.getElementById('mainSearch').value)">بحث</button>
+    <div class="hero-ornament" style="bottom:15%; left:8%; transform: scale(1.5);">
+      <svg width="100" height="100" viewBox="0 0 100 100" fill="none" stroke="rgba(212,175,55,0.3)" stroke-width="0.5">
+        <polygon points="50,10 60,40 90,50 60,60 50,90 40,60 10,50 40,40"/>
+        <circle cx="50" cy="50" r="25" />
+      </svg>
     </div>
-    <div class="search-results" id="searchResults"></div>
-  </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="container">
+    <div class="hero-content">
+      <div class="hero-badge">◆ نُورٌ يَهْدِي الْقُلُوب ◆</div>
+      <h1 class="hero-title">
+        السيرة النبوية<br>
+        <span class="gold">المسيرة العطرة</span>
+        <span class="line2">لخاتم الأنبياء والمرسلين محمد ﷺ</span>
+      </h1>
+      <div class="hero-verse">«لَّقَدْ كَانَ لَكُمْ فِي رَسُولِ اللَّهِ أُسْوَةٌ حَسَنَةٌ»</div>
+      <p class="hero-sub">
+        تصفّح المحطات العظيمة في حياته، وتعرّف على تفاصيل غزواته، وسيرة صحابته الأبرار، 
+        واستمع إلى أعذب التلاوات ومحطات السيرة في تجربة رقمية إسلامية فاخرة.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="goTo('timeline')">
+          <span>📜</span> ابدأ قراءة السيرة
+        </button>
+        <button class="btn-secondary" onclick="goTo('listen')">
+          <span>🎙️</span> استمع للإذاعات
+        </button>
+      </div>
+      
+      <div class="hero-stats stagger">
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-count="17">0</div>
+          <div class="hero-stat-label">محطة زمنية</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-count="8">0</div>
+          <div class="hero-stat-label">غزوات كبرى</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-count="12">0</div>
+          <div class="hero-stat-label">صحابياً جليلاً</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num" data-count="20">0</div>
+          <div class="hero-stat-label">محطة إذاعية</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator" onclick="goTo('timeline')">
+      <span>اكتشف المزيد</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </div>
+  </section>
+
+  <!-- TIMELINE SECTION -->
+  <section id="timeline">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">التاريخ الإسلامي</div>
+        <h2 class="section-title">الخط الزمني للسيرة النبوية</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">رحلة المصطفى ﷺ من الميلاد إلى الرفيق الأعلى، محطات غيّرت مجرى التاريخ وأنارت البشرية.</p>
+      </div>
+      <div class="timeline-wrap" id="timelineWrap">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTEN SECTION -->
+  <section id="listen" class="pattern-bg">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">الصوتيات</div>
+        <h2 class="section-title text-gold">إذاعات السيرة والقرآن</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">استمع إلى محطات السيرة النبوية، وتلاوات خاشعة لأبرز القراء، وبرامج الفتاوى والأذكار على مدار الساعة.</p>
+      </div>
+      
+      <div class="listen-controls reveal scale">
+        <input class="search-box" id="stationSearch" placeholder="ابحث عن إذاعة أو مقرئ..." oninput="filterStations()">
+        <select class="filter-select" id="catFilter" onchange="filterStations()">
+          <option value="">جميع التصنيفات</option>
+        </select>
+      </div>
+      
+      <div class="stations-grid stagger" id="stationsGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- GHAZAWAT SECTION -->
+  <section id="ghazawat">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">المعارك الفاصلة</div>
+        <h2 class="section-title">غزوات النبي ﷺ</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">مواقف الدفاع عن العقيدة وبناء الدولة الإسلامية، دروس في التخطيط والصبر والنصر.</p>
+      </div>
+      <div class="ghazawat-grid stagger" id="ghazawatGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SAHABA SECTION (NEW) -->
+  <section id="sahaba">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">الجيل الفريد</div>
+        <h2 class="section-title">صحابته الأبرار</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">رجال ونساء صدقوا ما عاهدوا الله عليه، كانوا نجوم الهدى وحملة الرسالة بعد نبيهم ﷺ.</p>
+      </div>
+      <div class="sahaba-grid stagger" id="sahabaGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SHAMAIL SECTION -->
+  <section id="shamail">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">أخلاق النبوة</div>
+        <h2 class="section-title">الشمائل المحمدية</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">صفات وأخلاق سيد الخلق ﷺ، القدوة الحسنة والمثل الأعلى للإنسانية جمعاء.</p>
+      </div>
+      <div class="shamail-grid stagger" id="shamailGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- HADITH SECTION -->
+  <section id="hadith" class="pattern-bg">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">جوامع الكلم</div>
+        <h2 class="section-title text-gold">روائع الأحاديث الشريفة</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">مقتطفات من كلام المصطفى ﷺ الذي لا ينطق عن الهوى، نور يهدي القلوب في معاملات الحياة.</p>
+      </div>
+      <div class="hadith-grid stagger" id="hadithGrid">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- DAILY WISDOM SECTION -->
+  <section id="daily">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">تجديد الإيمان</div>
+        <h2 class="section-title">حكمة اليوم</h2>
+        <div class="gold-divider"><span>✦</span></div>
+      </div>
+      <div class="daily-card reveal scale">
+        <div class="daily-type" id="dailyType">حديث شريف</div>
+        <div class="daily-text" id="dailyText"></div>
+        <div class="daily-source" id="dailySource"></div>
+        <div class="daily-actions">
+          <button class="daily-btn" onclick="loadDaily(true)">
+            <span>🔄</span> حكمة أخرى
+          </button>
+          <button class="daily-btn-share" onclick="shareDaily()">
+            <span>📤</span> مشاركة
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH SECTION -->
+  <section id="search-sec">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">دليل السيرة</div>
+        <h2 class="section-title">البحث الذكي</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">ابحث في أحداث السيرة، الغزوات، الأحاديث، الصحابة، أو حتى المحطات الإذاعية.</p>
+      </div>
+      <div class="search-big reveal scale">
+        <input type="text" id="mainSearch" placeholder="ابحث عن غزوة بدر، أبو بكر، أذكار الصباح..." oninput="doSearch(this.value)">
+        <button onclick="doSearch(document.getElementById('mainSearch').value)">بحث 🔍</button>
+      </div>
+      <div class="search-results stagger" id="searchResults"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
     <div class="footer-grid">
-      <div>
-        <div class="footer-title">السيرة النبوية ﷺ</div>
-        <p class="footer-about">منصة تفاعلية شاملة للتعرف على سيرة خاتم الأنبياء والمرسلين محمد ﷺ، مع محتوى إسلامي متنوع وإذاعات مباشرة.</p>
+      <div class="footer-brand">
+        <div class="footer-logo">السيرة النبوية ﷺ</div>
+        <p class="footer-about">
+          منصة رقمية تفاعلية تهدف إلى تقديم سيرة المصطفى ﷺ بطريقة عصرية جذابة، 
+          لتكون مرجعاً سهلاً لكل مسلم باحث عن الهدي النبوي وتاريخ الإسلام المشرق.
+        </p>
         <div class="footer-social">
-          <a title="تويتر">✕</a>
+          <a title="تويتر">𝕏</a>
           <a title="يوتيوب">▶</a>
           <a title="تيليغرام">✉</a>
+          <a title="إنستغرام">📷</a>
         </div>
       </div>
       <div>
-        <div class="footer-title">روابط سريعة</div>
+        <div class="footer-title">أقسام المنصة</div>
         <ul class="footer-links">
-          <li><a onclick="goTo('timeline')">الخط الزمني</a></li>
-          <li><a onclick="goTo('listen')">محطات الاستماع</a></li>
-          <li><a onclick="goTo('ghazawat')">الغزوات</a></li>
+          <li><a onclick="goTo('timeline')">الخط الزمني للسيرة</a></li>
+          <li><a onclick="goTo('listen')">الإذاعات المباشرة</a></li>
+          <li><a onclick="goTo('ghazawat')">الغزوات والمعارك</a></li>
+          <li><a onclick="goTo('sahaba')">تراجم الصحابة</a></li>
           <li><a onclick="goTo('shamail')">الشمائل النبوية</a></li>
-          <li><a onclick="goTo('hadith')">الأحاديث الشريفة</a></li>
         </ul>
       </div>
       <div>
-        <div class="footer-title">مصادر مقترحة</div>
+        <div class="footer-title">مصادر علمية موثوقة</div>
         <ul class="footer-links">
-          <li><a>صحيح البخاري</a></li>
-          <li><a>صحيح مسلم</a></li>
-          <li><a>سيرة ابن هشام</a></li>
-          <li><a>الرحيق المختوم</a></li>
-          <li><a>السيرة النبوية للذهبي</a></li>
+          <li><a href="#" target="_blank">صحيح البخاري ومسلم</a></li>
+          <li><a href="#" target="_blank">الرحيق المختوم</a></li>
+          <li><a href="#" target="_blank">سيرة ابن هشام</a></li>
+          <li><a href="#" target="_blank">زاد المعاد في هدي خير العباد</a></li>
+          <li><a href="#" target="_blank">مجمع الملك فهد لطباعة المصحف</a></li>
         </ul>
       </div>
     </div>
+    
+    <hr class="footer-divider">
+    
     <div class="footer-bottom">
-      جميع الحقوق محفوظة © ١٤٤٦ هـ &nbsp;|&nbsp; صلى الله على سيدنا محمد وعلى آله وصحبه أجمعين
+      <span class="footer-salah">۞ إِنَّ اللَّهَ وَمَلَائِكَتَهُ يُصَلُّونَ عَلَى النَّبِيِّ ۚ يَا أَيُّهَا الَّذِينَ آمَنُوا صَلُّوا عَلَيْهِ وَسَلِّمُوا تَسْلِيمًا ۞</span>
+      جميع الحقوق محفوظة © ١٤٤٦ هـ / ٢٠٢٤ م &nbsp;|&nbsp; صُمّم بحب لخدمة السيرة العطرة
+    </div>
+  </footer>
+
+  <!-- MINI AUDIO PLAYER (Fixed Bottom) -->
+  <div id="mini-player">
+    <div class="mp-artwork">🎙️</div>
+    <div class="mp-info">
+      <div class="mp-label" id="mp-cat">السيرة النبوية</div>
+      <div class="mp-name" id="mp-name">جارٍ التحميل...</div>
+    </div>
+    <div class="mp-controls">
+      <button class="mp-btn main" id="mp-play-btn" onclick="togglePlay()" title="تشغيل / إيقاف">▶</button>
+      <button class="mp-btn" onclick="stopAudio()" title="إغلاق المحطة">✖</button>
+    </div>
+    <div class="mp-vol">
+      <span class="mp-vol-icon">🔊</span>
+      <input type="range" class="mp-vol-slider" id="mp-volume" min="0" max="100" value="80" title="مستوى الصوت">
+    </div>
+    <!-- Progress Indicator -->
+    <div class="mp-progress"><div class="mp-progress-bar"></div></div>
+  </div>
+
+  <!-- SAHABI MODAL -->
+  <div id="sahabi-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-avatar">👑</div>
+        <div class="modal-name">اسم الصحابي</div>
+        <div class="modal-nickname">اللقب</div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-quote">مقولة مأثورة</div>
+        <div class="modal-desc">نبذة عن حياته وفضائله.</div>
+        <button class="modal-close" onclick="closeSahabiModal()">إغلاق</button>
+      </div>
     </div>
   </div>
-</footer>
-<script src="script.js"></script>
+
+  <!-- BACK TO TOP BUTTON -->
+  <button id="back-to-top" title="العودة للأعلى">↑</button>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script src="script-enhanced.js"></script>
 </body>
 </html>
