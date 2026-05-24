@@ -14,7 +14,6 @@
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="style-enhanced.css">
-  <link rel="stylesheet" href="style-playlist.css">
   
   <!-- Fallback for SVG Icons -->
   <style>
@@ -48,7 +47,6 @@
       <a onclick="goTo('shamail')">الشمائل</a>
       <a onclick="goTo('hadith')">الأحاديث</a>
       <a onclick="goTo('daily')">حكمة اليوم</a>
-      <a onclick="goTo('seerah-playlist')">السيرة كاملة</a>
     </div>
     <div class="nav-actions">
       <button class="nav-search-btn" onclick="goTo('search-sec')" title="بحث (Ctrl+K)">🔍</button>
@@ -128,6 +126,56 @@
       </svg>
     </div>
   </section>
+
+
+    <section id="playlist-section" class="space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 border-b border-white/5 pb-5">
+          <div class="space-y-1">
+            <span class="text-[10px] uppercase tracking-widest text-[#d4af37] font-mono font-bold block">مكتبة المقاطع المرئية الكاملة</span>
+            <h2 class="text-3xl font-serif text-white">
+              السيرة النبوية <span class="text-[#d4af37] font-sans text-lg opacity-80">(كاملة)</span>
+            </h2>
+            <p class="text-gray-400 text-sm max-w-xl font-serif">
+              سِلسلة فُجرت بأنوار المعرفة بالتفصيل والمنهج الموثق ريادة الأستاذ <strong>يوسف القط l Yousef Elkott</strong>.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2 items-center">
+            <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border bg-emerald-950/20 text-emerald-400 border-emerald-500/10 shadow-sm">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              بث مباشر متكامل (دون مفتاح API)
+            </div>
+            <div class="bg-[#16181e] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-gray-400 font-mono">
+              <span id="videos-count-badge" class="text-white font-bold">10 حلقة</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Video loading skeleton -->
+        <div id="videos-loader" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
+          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
+          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
+          <div class="aspect-video rounded-xl bg-white/5 animate-pulse border border-white/5"></div>
+        </div>
+
+        <!-- Dynamic video grid -->
+        <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Populated dynamically via Vanilla JS -->
+        </div>
+
+        <!-- Load More Button -->
+        <footer id="load-more-video-footer" class="pt-6 flex justify-center border-t border-white/5">
+          <button 
+            id="load-more-videos-btn"
+            class="bg-white/5 hover:bg-white/10 border border-white/20 px-12 py-3 rounded-full text-sm font-medium transition-all flex items-center gap-3 tracking-widest hover:border-[#d4af37]/30 text-white cursor-pointer"
+          >
+            عرض المزيد من حلقات السلسلة الكبرى
+            <svg class="w-4 h-4 text-[#d4af37] transition-transform rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </footer>
+      </section>
 
   <!-- TIMELINE SECTION -->
   <section id="timeline">
@@ -349,141 +397,11 @@
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════════
-       السيرة النبوية (كاملة) — YouTube Playlist Section
-       بواسطة يوسف القط | Yousef Elkott
-       ══════════════════════════════════════════════════════════ -->
-  <section id="seerah-playlist" class="seerah-playlist-section arabesque-top">
-    <!-- Background decorations -->
-    <div class="playlist-bg-ornament playlist-bg-ornament--1">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M100 10 L118 66 L176 66 L129 101 L147 157 L100 122 L53 157 L71 101 L24 66 L82 66 Z" fill="currentColor"/></svg>
-    </div>
-    <div class="playlist-bg-ornament playlist-bg-ornament--2">
-      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><path d="M100 10 L118 66 L176 66 L129 101 L147 157 L100 122 L53 157 L71 101 L24 66 L82 66 Z" fill="currentColor"/></svg>
-    </div>
-
-    <div class="container">
-      <!-- Section Header -->
-      <div class="section-header reveal-up">
-        <div class="section-badge">
-          <span class="badge-icon">▶</span>
-          <span>مكتبة الفيديو</span>
-        </div>
-        <h2 class="section-title">
-          السيرة النبوية
-          <span class="title-accent">كاملة</span>
-        </h2>
-        <div class="section-divider">
-          <span class="divider-ornament">✦</span>
-          <span class="divider-line"></span>
-          <span class="divider-ornament">✦</span>
-        </div>
-        <p class="section-desc">
-          سلسلة متكاملة ومؤصّلة في السيرة النبوية العطرة — استمع، تعلّم، وعِش أحداث حياة المصطفى ﷺ من خلال هذه المقاطع المختارة
-        </p>
-        <p class="playlist-credit">بواسطة <strong>يوسف القط</strong> | Yousef Elkott</p>
-      </div>
-
-      <!-- Filter / Stats Bar -->
-      <div class="playlist-stats-bar reveal-up">
-        <div class="pstat">
-          <span class="pstat-num" id="yt-total-count">—</span>
-          <span class="pstat-label">مقطع</span>
-        </div>
-        <div class="pstat-sep">|</div>
-        <div class="pstat">
-          <span class="pstat-icon">▶</span>
-          <span class="pstat-label">قائمة تشغيل يوتيوب</span>
-        </div>
-        <div class="pstat-sep">|</div>
-        <div class="playlist-view-toggle">
-          <button class="view-btn active" id="viewGrid" title="عرض شبكي">⊞</button>
-          <button class="view-btn" id="viewSlider" title="عرض شريطي">☰</button>
-        </div>
-      </div>
-
-      <!-- Loading State -->
-      <div class="playlist-loader" id="playlistLoader">
-        <div class="loader-shimmer-grid">
-          <div class="shimmer-card"></div>
-          <div class="shimmer-card"></div>
-          <div class="shimmer-card"></div>
-          <div class="shimmer-card"></div>
-          <div class="shimmer-card"></div>
-          <div class="shimmer-card"></div>
-        </div>
-        <div class="loader-text">
-          <div class="loader-spinner"></div>
-          <span>جارٍ تحميل الفيديوهات...</span>
-        </div>
-      </div>
-
-      <!-- Error State -->
-      <div class="playlist-error" id="playlistError" style="display:none">
-        <div class="error-icon">⚠</div>
-        <div class="error-title">تعذّر تحميل القائمة</div>
-        <div class="error-desc">تحقق من اتصالك بالإنترنت وأعد المحاولة</div>
-        <button class="error-retry" onclick="loadPlaylist(true)">إعادة المحاولة</button>
-      </div>
-
-      <!-- Videos Grid -->
-      <div class="playlist-grid" id="playlistGrid" style="display:none"></div>
-
-      <!-- Load More -->
-      <div class="playlist-more-wrap" id="loadMoreWrap" style="display:none">
-        <button class="load-more-btn" id="loadMoreBtn" onclick="loadMoreVideos()">
-          <span class="lm-icon">▼</span>
-          <span class="lm-text">عرض المزيد من الحلقات</span>
-          <span class="lm-count" id="lmCount"></span>
-        </button>
-      </div>
-
-      <!-- Fallback Static Playlist (shown if API fails) -->
-      <div class="playlist-fallback" id="playlistFallback" style="display:none">
-        <div class="fallback-notice">
-          <span>📌</span>
-          <span>عرض الفيديوهات المحددة — للاطلاع على القائمة الكاملة</span>
-          <a href="https://youtube.com/playlist?list=PL6mMw2piuhMxbpKYpsQmHAprcqBchpd-F" target="_blank" class="fallback-link">افتح في يوتيوب ↗</a>
-        </div>
-        <div class="playlist-grid" id="fallbackGrid"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- YouTube Video Modal -->
-  <div class="yt-modal" id="ytModal" role="dialog" aria-modal="true" aria-label="مشغل الفيديو">
-    <div class="yt-modal-backdrop" onclick="closeYtModal()"></div>
-    <div class="yt-modal-card">
-      <div class="yt-modal-header">
-        <div class="yt-modal-title" id="ytModalTitle">عنوان الفيديو</div>
-        <button class="yt-modal-close" onclick="closeYtModal()" title="إغلاق">✕</button>
-      </div>
-      <div class="yt-modal-player">
-        <div class="yt-embed-wrap" id="ytEmbedWrap">
-          <!-- iframe injected dynamically -->
-        </div>
-      </div>
-      <div class="yt-modal-meta" id="ytModalMeta"></div>
-      <div class="yt-modal-actions">
-        <button class="yt-action-btn yt-prev" id="ytPrevBtn" onclick="ytModalNav(-1)">
-          <span>→</span> السابقة
-        </button>
-        <a class="yt-action-btn yt-open" id="ytOpenLink" href="#" target="_blank">
-          فتح في يوتيوب ↗
-        </a>
-        <button class="yt-action-btn yt-next" id="ytNextBtn" onclick="ytModalNav(1)">
-          التالية <span>←</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- BACK TO TOP BUTTON -->
   <button id="back-to-top" title="العودة للأعلى">↑</button>
 
   <!-- Scripts -->
   <script src="script.js"></script>
   <script src="script-enhanced.js"></script>
-  <script src="script-playlist.js"></script>
 </body>
 </html>
