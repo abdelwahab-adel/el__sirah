@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>السيرة النبوية الشريفة ﷺ</title>
+<meta name="description" content="منصة تفاعلية شاملة للتعرف على سيرة خاتم الأنبياء والمرسلين محمد ﷺ">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Welcome Overlay -->
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-ornament">✦ بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ ✦</div>
+  <div class="welcome-text" id="welcomeTyping"></div>
+  <div class="welcome-sub">رحلة روحانية في حياة خير الأنام ﷺ</div>
+  <button class="welcome-btn" id="welcomeBtn" onclick="closeWelcome()">ابدأ الرحلة ✨</button>
+</div>
+
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">السيرة النبوية ﷺ</div>
+  <div class="nav-links" id="navLinks">
+    <a onclick="goTo('hero')">الرئيسية</a>
+    <a onclick="goTo('timeline')">الخط الزمني</a>
+    <a onclick="goTo('listen')">الاستماع</a>
+    <a onclick="goTo('ghazawat')">الغزوات</a>
+    <a onclick="goTo('shamail')">الشمائل</a>
+    <a onclick="goTo('hadith')">الأحاديث</a>
+    <a onclick="goTo('daily')">حكمة اليوم</a>
+    <a onclick="goTo('search-sec')">البحث</a>
+  </div>
+  <div class="nav-toggle" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <svg class="hero-ornament" style="top:8%;right:4%;width:180px;height:180px;" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="90,8 108,52 156,52 120,80 134,124 90,97 46,124 60,80 24,52 72,52" fill="rgba(212,175,55,0.12)" stroke="rgba(212,175,55,0.35)" stroke-width="1"/>
+      <circle cx="90" cy="90" r="55" fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="1"/>
+      <circle cx="90" cy="90" r="36" fill="none" stroke="rgba(212,175,55,0.1)" stroke-width="1" stroke-dasharray="4,4"/>
+    </svg>
+    <svg class="hero-ornament" style="bottom:12%;left:4%;width:140px;height:140px;opacity:0.05;" viewBox="0 0 140 140" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="70,5 84,44 126,44 93,68 105,107 70,83 35,107 47,68 14,44 56,44" fill="rgba(212,175,55,0.2)" stroke="rgba(212,175,55,0.4)" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">◆ نور النبوة ◆</div>
+    <h1 class="hero-title">
+      السيرة النبوية<br><span class="gold">نور يهدي القلوب</span>
+    </h1>
+    <p class="hero-sub">رحلة تفاعلية في حياة رسول الله ﷺ منذ الميلاد وحتى الرحيل، تعمّق في أحداثها واستمع إلى البيان الشريف</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="goTo('timeline')">⬇ ابدأ الرحلة</button>
+      <button class="btn-secondary" onclick="goTo('listen')">🎙 استمع للسيرة</button>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ مرر للأسفل</div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline">
+  <div class="container">
+    <h2 class="section-title">الخط الزمني للسيرة النبوية</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">رحلة المصطفى ﷺ من الميلاد إلى الرحيل</p>
+    <div class="timeline-wrap" id="timelineWrap"></div>
+  </div>
+</section>
+
+<!-- LISTEN -->
+<section id="listen" class="pattern-bg">
+  <div class="container">
+    <h2 class="section-title">قسم الاستماع</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">استمع إلى محطات السيرة والقرآن والأذكار</p>
+    <div class="listen-controls">
+      <input class="search-box" id="stationSearch" placeholder="ابحث عن محطة..." oninput="filterStations()">
+      <select class="filter-select" id="catFilter" onchange="filterStations()">
+        <option value="">جميع التصنيفات</option>
+      </select>
+    </div>
+    <div class="stations-grid" id="stationsGrid"></div>
+    <div class="now-playing" id="nowPlaying" style="display:none;">
+      <div class="np-info">
+        <div class="np-label">يُشغَّل الآن</div>
+        <div class="np-name" id="npName">—</div>
+      </div>
+      <div class="np-controls">
+        <button class="np-btn main" id="playPauseBtn" onclick="togglePlay()">▶</button>
+        <button class="np-btn" onclick="stopAudio()" title="إيقاف">■</button>
+      </div>
+      <div class="np-vol">
+        <span>🔊</span>
+        <input type="range" class="vol-slider" min="0" max="100" value="80" oninput="setVolume(this.value)">
+      </div>
+    </div>
+    <audio id="audioPlayer" onplay="onAudioPlay()" onpause="onAudioPause()"></audio>
+  </div>
+</section>
+
+<!-- GHAZAWAT -->
+<section id="ghazawat">
+  <div class="container">
+    <h2 class="section-title">غزوات النبي ﷺ</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">المواقف الكبرى في مسيرة الدعوة الإسلامية</p>
+    <div class="ghazawat-grid" id="ghazawatGrid"></div>
+  </div>
+</section>
+
+<!-- SHAMAIL -->
+<section id="shamail">
+  <div class="container">
+    <h2 class="section-title">الشمائل النبوية الشريفة</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">صفات وأخلاق سيد الخلق ﷺ</p>
+    <div class="shamail-grid" id="shamailGrid"></div>
+  </div>
+</section>
+
+<!-- HADITH -->
+<section id="hadith" class="pattern-bg">
+  <div class="container">
+    <h2 class="section-title">من أحاديث المصطفى ﷺ</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">نور الحديث النبوي الشريف</p>
+    <div class="hadith-grid" id="hadithGrid"></div>
+  </div>
+</section>
+
+<!-- DAILY -->
+<section id="daily">
+  <div class="container">
+    <h2 class="section-title">حكمة اليوم</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">يتجدد كل يوم بإذن الله</p>
+    <div class="daily-card">
+      <div class="daily-type" id="dailyType">حديث شريف</div>
+      <div class="daily-text" id="dailyText"></div>
+      <div class="daily-source" id="dailySource"></div>
+      <button class="daily-btn" onclick="loadDaily()">🔄 حكمة أخرى</button>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<section id="search-sec">
+  <div class="container">
+    <h2 class="section-title">البحث الذكي</h2>
+    <div class="gold-line"></div>
+    <p class="section-sub">ابحث في أحداث السيرة والغزوات والأحاديث والمحطات</p>
+    <div class="search-big">
+      <input type="text" id="mainSearch" placeholder="ابحث عن حدث، غزوة، حديث..." oninput="doSearch(this.value)">
+      <button onclick="doSearch(document.getElementById('mainSearch').value)">بحث</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-title">السيرة النبوية ﷺ</div>
+        <p class="footer-about">منصة تفاعلية شاملة للتعرف على سيرة خاتم الأنبياء والمرسلين محمد ﷺ، مع محتوى إسلامي متنوع وإذاعات مباشرة.</p>
+        <div class="footer-social">
+          <a title="تويتر">✕</a>
+          <a title="يوتيوب">▶</a>
+          <a title="تيليغرام">✉</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-title">روابط سريعة</div>
+        <ul class="footer-links">
+          <li><a onclick="goTo('timeline')">الخط الزمني</a></li>
+          <li><a onclick="goTo('listen')">محطات الاستماع</a></li>
+          <li><a onclick="goTo('ghazawat')">الغزوات</a></li>
+          <li><a onclick="goTo('shamail')">الشمائل النبوية</a></li>
+          <li><a onclick="goTo('hadith')">الأحاديث الشريفة</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-title">مصادر مقترحة</div>
+        <ul class="footer-links">
+          <li><a>صحيح البخاري</a></li>
+          <li><a>صحيح مسلم</a></li>
+          <li><a>سيرة ابن هشام</a></li>
+          <li><a>الرحيق المختوم</a></li>
+          <li><a>السيرة النبوية للذهبي</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      جميع الحقوق محفوظة © ١٤٤٦ هـ &nbsp;|&nbsp; صلى الله على سيدنا محمد وعلى آله وصحبه أجمعين
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
