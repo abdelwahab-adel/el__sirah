@@ -385,13 +385,12 @@ function buildTimeline() {
         <div class="tl-item" style="transition-delay:${(i * 0.08).toFixed(2)}s">
           <div class="tl-card" onclick="this.classList.toggle('expanded'); const more = this.querySelector('.tl-more'); if(this.classList.contains('expanded')){more.innerHTML='إخفاء التفاصيل ↑'}else{more.innerHTML='اقرأ المزيد ←'}">
             <div class="tl-era">${item.era}</div>
-            <div class="tl-year">${item.year}</div>
             <h3>${item.title}</h3>
             <p>${item.desc}</p>
             <span class="tl-more">اقرأ المزيد ←</span>
             <div class="tl-details">${item.details}</div>
           </div>
-          <div class="tl-dot">${item.icon}</div>
+          <div class="tl-dot tl-year" >${item.year}</div>
           <div class="tl-empty"></div>
         </div>`;
       itemIdx++;
