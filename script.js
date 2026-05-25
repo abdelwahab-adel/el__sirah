@@ -537,22 +537,30 @@ function shareDaily() {
 // ═══════════════════════════════════════════════════════════════
 // 15. SMART SEARCH
 // ═══════════════════════════════════════════════════════════════
-const searchableData = [
-  ...timelineData.map(t  => ({ type:'سيرة',    text: t.title + ' ' + t.desc,   section:'timeline' })),
-  ...ghazawatData.map(g  => ({ type:'غزوة',    text: g.name + ' ' + g.reason + ' ' + g.result, section:'ghazawat' })),
-  ...sahabaData.map(s    => ({ type:'صحابي',   text: s.name + ' ' + s.nickname + ' ' + s.desc, section:'sahaba'   })),
-  ...hadithData.map(h    => ({ type:'حديث',    text: h.text + ' ' + h.rawi,    section:'hadith'   })),
-  ...shamailData.map(s   => ({ type:'شمائل',   text: s.title + ' ' + s.desc,   section:'shamail'  })),
-  ...Stations.map(s      => ({ type:'محطة',    text: s.name + ' ' + s.category, section:'listen', station:s })),
-  ...dailyItems.map(d    => ({ type:'حكمة',    text: d.type + ' ' + d.text,     section:'daily'    })),
-];
+// searchableData is built lazily so INITIAL_EPISODES (defined later) is available
+let _searchableData = null;
+function getSearchableData() {
+  if (_searchableData) return _searchableData;
+  const eps = (typeof INITIAL_EPISODES !== 'undefined') ? INITIAL_EPISODES : [];
+  _searchableData = [
+    ...timelineData.map(t  => ({ type:'سيرة',   text: t.title + ' ' + t.desc,                   section:'timeline' })),
+    ...ghazawatData.map(g  => ({ type:'غزوة',   text: g.name + ' ' + g.reason + ' ' + g.result, section:'ghazawat' })),
+    ...eps.map(v           => ({ type:'فيديو',   text: v.title + ' ' + (v.desc||''),              section:'videos'   })),
+    ...sahabaData.map(s    => ({ type:'صحابي',  text: s.name + ' ' + s.nickname + ' ' + s.desc, section:'sahaba'   })),
+    ...hadithData.map(h    => ({ type:'حديث',   text: h.text + ' ' + h.rawi,                     section:'hadith'   })),
+    ...shamailData.map(s   => ({ type:'شمائل',  text: s.title + ' ' + s.desc,                    section:'shamail'  })),
+    ...Stations.map(s      => ({ type:'محطة',   text: s.name + ' ' + s.category, section:'listen', station:s        })),
+    ...dailyItems.map(d    => ({ type:'حكمة',   text: d.type + ' ' + d.text,                     section:'daily'    })),
+  ];
+  return _searchableData;
+}
 
 function doSearch(q) {
   const res = document.getElementById('searchResults');
   if (!res) return;
   if (!q.trim()) { res.innerHTML = ''; return; }
   const q_lower = q.trim().toLowerCase();
-  const matches = searchableData
+  const matches = getSearchableData()
     .filter(d => d.text.includes(q.trim()) || d.text.toLowerCase().includes(q_lower))
     .slice(0, 12);
   if (!matches.length) {
@@ -696,7 +704,7 @@ function setupBackToTop() {
 // 22. ACTIVE NAV LINKS (on scroll)
 // ═══════════════════════════════════════════════════════════════
 function setupActiveNav() {
-  const sections = ['hero','timeline','listen','ghazawat','sahaba','shamail','hadith','daily','search-sec'];
+  const sections = ['hero','timeline','videos','listen','ghazawat','sahaba','shamail','hadith','daily','search-sec'];
   const links = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
@@ -1134,67 +1142,33 @@ document.addEventListener('DOMContentLoaded', () => {
         // Render loop
         grid.innerHTML = sliceToRender.map((ep, index) => {
           return `
-            <div 
-              class="relative bg-[#121318]/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl p-5 block group transition-all duration-300 transform cursor-pointer card-glow video-card-item"
-              data-index="${index}"
-              data-id="${ep.id}"
-            >
-              <!-- Image Banner with duration -->
-              <div class="aspect-video w-full rounded-xl overflow-hidden relative border border-white/5 bg-[#16181e] mb-4">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent z-10"></div>
-                
-                <!-- Episode Badge -->
-                <span class="absolute top-3 right-3 select-none text-[10px] bg-gold text-black font-extrabold px-3 py-1 rounded-full z-20 font-sans tracking-wide">
-                  الحلقة ${ep.episode}
-                </span>
-
-                <!-- Duration Indicator -->
-                <span class="absolute bottom-2 left-2 select-none text-[10px] bg-[#0c0d10]/95 border border-white/10 text-white font-semibold px-2 py-0.5 rounded font-mono z-20">
-                  ⏱ ${ep.duration}
-                </span>
-
-                <!-- Play Overlay effect -->
-                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/40 z-20">
-                  <div class="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center scale-90 group-hover:scale-100 transition-transform duration-300 shadow-lg">
-                    <svg class="w-5 h-5 text-white mr-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"></path>
-                    </svg>
+            <article class="video-card" data-index="${index}" data-id="${ep.id}">
+              <div class="video-card-thumb">
+                <span class="video-card-badge">الحلقة ${ep.episode}</span>
+                <span class="video-card-duration">⏱ ${ep.duration}</span>
+                <div class="video-card-play">
+                  <div class="video-card-play-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
                   </div>
                 </div>
-
-                <!-- Main Cover Image -->
-                <img 
-                  src="${ep.img}" 
-                  alt="${ep.title}" 
-                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                  loading="lazy"
-                />
+                <img src="${ep.img}" alt="${ep.title}" loading="lazy" />
               </div>
-
-              <!-- Meta and description -->
-              <div class="space-y-2 text-right">
-                <div class="flex justify-between items-center text-[10px] text-gray-500 font-mono">
-                  <span class="text-gold-400 font-bold font-serif">بواسطة يوسف القط</span>
-                  <span>👁 ${ep.views}</span>
+              <div class="video-card-body">
+                <div class="video-card-meta">
+                  <span class="video-card-author">بواسطة يوسف القط</span>
+                  <span class="video-card-views">👁 ${ep.views}</span>
                 </div>
-
-                <h4 class="text-base font-serif text-white group-hover:text-gold transition-colors font-semibold leading-relaxed line-clamp-2">
-                  ${ep.title}
-                </h4>
-
-                <p class="text-xs text-gray-400 font-serif leading-relaxed line-clamp-3">
-                  ${ep.desc || "تفاصيل ممتازة وشرح مسهب وممتع لوقائع وحياة حبيب الأمة العظيم ومكارم أخلاقه الشامخة."}
-                </p>
+                <h4 class="video-card-title">${ep.title}</h4>
+                <p class="video-card-desc">${ep.desc || "تفاصيل ممتعة وشرح مسهب لوقائع حياة حبيب الأمة ﷺ ومكارم أخلاقه."}</p>
+                <div class="video-card-footer">
+                  <span>ابدأ المشاهدة الآن</span>
+                  <span aria-hidden="true">◀</span>
+                </div>
               </div>
-
-              <!-- Hover Link Highlight bottom -->
-              <div class="border-t border-white/5 pt-3 mt-3 flex justify-between items-center text-[11px] text-gold/80 group-hover:text-gold transition-colors font-sans">
-                <span>ابدأ المشاهدة الفاخرة الآن</span>
-                <span class="text-xs">◀</span>
-              </div>
-            </div>
+            </article>
           `;
         }).join('');
+
       }
 
       // 4. Reset Filters
@@ -1346,7 +1320,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (loadMoreBtn) {
         loadMoreBtn.addEventListener("click", () => {
-          visibleCount += 6;
+          visibleCount += 4;
           renderEpisodes();
         });
       }
@@ -1369,4 +1343,3 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         initElkott();
       }
-    

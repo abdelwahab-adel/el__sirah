@@ -65,14 +65,7 @@
   <div id="reading-progress"></div>
 
   <!-- Welcome Overlay -->
-  <div class="welcome-overlay" id="welcomeOverlay">
-    <div class="welcome-particles"></div>
-    <div class="welcome-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
-    <div class="welcome-ornament">✦ ✦ ✦</div>
-    <div class="welcome-text" id="welcomeTyping"></div>
-    <div class="welcome-sub">رحلة روحانية وتفاعلية في مسيرة خير الأنام ﷺ</div>
-    <button class="welcome-btn" id="welcomeBtn" onclick="closeWelcome()">ابدأ الرحلة ✨</button>
-  </div>
+
 
   <!-- Navigation -->
   <nav>
@@ -80,6 +73,7 @@
     <div class="nav-links" id="navLinks">
       <a onclick="goTo('hero')" class="active">الرئيسية</a>
       <a onclick="goTo('timeline')">الخط الزمني</a>
+      <a onclick="goTo('videos')">السلسلة المرئية</a>
       <a onclick="goTo('listen')">الاستماع</a>
       <a onclick="goTo('ghazawat')">الغزوات</a>
       <a onclick="goTo('sahaba')">الصحابة</a>
@@ -183,89 +177,68 @@
   </section>
 
 
-    <!-- Glowing Background blobs -->
-    <div class="fixed top-[15%] left-[10%] w-[35rem] h-[35rem] bg-gold-900/5 blur-[160px] rounded-full pointer-events-none -z-10"></div>
-    <div class="fixed bottom-[10%] right-[5%] w-[40rem] h-[40rem] bg-emerald-950/10 blur-[180px] rounded-full pointer-events-none -z-10"></div>
-
-    <!-- ============================================================================
-        MAIN LAYOUT WITH TITLE AND VIDEOS ONLY
-        ============================================================================ -->
-      
-      <!-- Elegant Header and centered Title block -->
-      <div  class="text-center py-6 space-y-4" style="background-color: var(--emerald)">
-        <h1 class="text-3xl sm:text-5xl font-serif font-bold text-white tracking-wide leading-tight">
-          السيرة النبوية الكبرى كاملة ﷺ
-        </h1>
-        <p class="text-sm text-gold-500 font-sans tracking-wide">البرنامج المرئي الكامل للأستاذ يوسف القط</p>
+  <!-- VIDEOS SECTION — السيرة النبوية الكبرى كاملة -->
+  <section id="videos" class="pattern-bg">
+    <div class="container reveal">
+      <div class="section-header">
+        <div class="section-badge">البرنامج المرئي</div>
+        <h2 class="section-title">السيرة النبوية الكبرى كاملة ﷺ</h2>
+        <div class="gold-divider"><span>✦</span></div>
+        <p class="section-sub">السلسلة المرئية الكاملة للأستاذ يوسف القط — رحلة موثّقة عبر محطات السيرة العطرة.</p>
       </div>
 
-      <!-- Search & Filters Block -->
-      <div style="background-color: var(--emerald)" class=" mx-auto flex flex-col sm:flex-row items-center pb-8 border-b border-white/5">
-        <!-- Search Input -->
-        <div class="relative flex-1 w-full">
-          <span class="absolute right-4 top-3.5 text-gray-500">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </span>
-          <input 
-            type="text" 
+      <!-- Search & Sort -->
+      <div class="videos-controls reveal scale">
+        <div class="videos-search-wrap">
+          <svg class="videos-search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
             id="videos-local-search"
+            class="search-box videos-search-input"
             placeholder="ابحث بالحلقة أو العنوان أو الموضوع..."
-            class="w-full bg-black/50 text-sm rounded-xl px-12 py-3.5 text-white border border-white/10 outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-500/30 transition-all font-sans placeholder-gray-500 text-right pr-12 pl-4"
+            aria-label="بحث في الحلقات"
           />
         </div>
-        
-        <!-- Sorting -->
-        <select 
-          id="videos-local-sort"
-          class="bg-space-800 border border-white/10 text-xs rounded-xl px-4 py-3.5 text-white outline-none focus:border-gold transition-all block w-full sm:w-auto h-full select-none"
-        >
+        <select id="videos-local-sort" class="filter-select" aria-label="ترتيب الحلقات">
           <option value="asc">ترتيب تصاعدي (من المقدمة)</option>
           <option value="desc">ترتيب تنازلي (الأحدث أولاً)</option>
         </select>
       </div>
 
-      <!-- Playback Toggle Options -->
-     
-      <!-- ============================================================================
-          VIDEOS GRID SECTION
-          ============================================================================ -->
-      <section class="space-y-6 pt-4" style="background-color: var(--emerald)">
-        <!-- Local / Online loading status -->
-        <div id="elkott-sync-status" class="bg-gold/5 border border-gold/15 px-4 py-3 rounded-xl flex items-center justify-between text-xs text-gray-400 hidden">
-          <span class="flex items-center gap-2">
-            <span class="text-gold-500">✨</span>
-            <span id="sync-status-text">يتم الآن مزامنة وجلب أحدث المشاهدات من يوتيوب...</span>
-          </span>
-          <span class="font-mono text-[10px] text-gold-300">مباشر</span>
-        </div>
+      <!-- Sync status -->
+      <div id="elkott-sync-status" class="videos-sync-status hidden">
+        <span class="videos-sync-left">
+          <span class="videos-sync-dot">✨</span>
+          <span id="sync-status-text">يتم الآن مزامنة وجلب أحدث المشاهدات من يوتيوب...</span>
+        </span>
+        <span class="videos-sync-live">مباشر</span>
+      </div>
 
-        <!-- Video Cards Grid -->
-        <div id="elkott-video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Dynamic cards go here -->
-        </div>
+      <!-- Cards Grid -->
+      <div id="elkott-video-grid" class="videos-grid">
+        <!-- Dynamic cards injected by JS -->
 
-        <!-- Show More Button -->
-        <div id="elkott-load-more-container" class="pt-12 pb-4 flex justify-center items-center hidden">
-          <button 
-            id="btn-elkott-load-more" 
-            class="inline-flex items-center gap-2 bg-gold/10 hover:bg-gold/20 text-gold border border-gold/30 hover:border-gold/50 px-8 py-3.5 rounded-xl text-sm font-semibold transition-all shadow-lg active:scale-95 cursor-pointer"
-          >
-            <span>عرض المزيد من الحلقات</span>
-            <span>▼</span>
-          </button>
-        </div>
+      </div>
 
-        <!-- No matching elements statement -->
-        <div id="no-episodes-found" class="py-16 text-center text-gray-500 font-serif text-lg tracking-wide hidden">
-          لا توجد حلقات مطابقة للبحث الشريف في السلسلة الحالية... 
-          <button onclick="resetSearch()" class="text-gold border-b border-dashed border-gold/40 hover:text-white transition-colors cursor-pointer mr-1">إعادة الضبط</button>
-        </div>
-      </section>
+      <!-- Load More -->
+      <div id="elkott-load-more-container" class="videos-load-more hidden">
+        <button id="btn-elkott-load-more" class="btn-load-more" type="button">
+          <span>عرض المزيد من الحلقات</span>
+          <span aria-hidden="true">▼</span>
+        </button>
+      </div>
 
-    </main>
+      <!-- Empty state -->
+      <div id="no-episodes-found" class="videos-empty hidden">
+        لا توجد حلقات مطابقة للبحث الشريف...
+        <button onclick="resetSearch()" class="videos-empty-reset" type="button">إعادة الضبط</button>
+      </div>
+    </div>
+  </section>
+
 
     <!-- Simple, humble copyright layout -->
    
