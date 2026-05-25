@@ -1659,7 +1659,7 @@ footer {
   max-width: 880px; margin: 0 auto 2.5rem;
   align-items:stretch;
 }
-.videos-search-wrap{ position:relative; flex:1 1 280px; }
+.videos-search-wrap{ position:relative; flex:1 1 20px; }
 .videos-search-icon{
   position:absolute; right:1rem; top:50%; transform:translateY(-50%);
   width:1.15rem; height:1.15rem; color: var(--gold); opacity:.8;
@@ -1725,6 +1725,7 @@ footer {
   .videos-grid{ grid-template-columns: 1fr; gap:1.25rem; }
   .videos-controls{ flex-direction:column; }
   #videos-local-sort{ width:100%; }
+  /* #videos-local-search{ width:10%; } */
 }
 
 /* Video card */
