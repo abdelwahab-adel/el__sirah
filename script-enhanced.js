@@ -220,17 +220,6 @@ function saveScrollPosition() {
   localStorage.setItem('seerah_scroll_pct', pct);
 }
 
-function restoreScrollPosition() {
-  const pct = parseFloat(localStorage.getItem('seerah_scroll_pct') || '0');
-  if (pct > 2) {
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollTo = (pct / 100) * docH;
-    setTimeout(() => {
-      window.scrollTo({ top: scrollTo, behavior: 'smooth' });
-      showToast('↩️ استُعيد موضع قراءتك', '📖');
-    }, 1200);
-  }
-}
 
 // ═══════════════════════════════════════════════════════════════
 // 10. SHARE HANDLER
@@ -377,9 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupMiniPlayerVolume();
 
   // Restore reading position (skip on fresh welcome)
-  if (welcomed) {
-    window.addEventListener('load', restoreScrollPosition);
-  }
+ 
 
   // Save scroll on unload
   window.addEventListener('beforeunload', saveScrollPosition, { passive: true });

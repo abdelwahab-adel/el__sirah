@@ -751,13 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Restore last station info
-  const last = localStorage.getItem('seerah_last_station');
-  if (last) {
-    try {
-      const s = JSON.parse(last);
-      showToast(`آخر استماع: ${s.name}`, '🎙️');
-    } catch(e) {}
-  }
+  
 });
 
 
