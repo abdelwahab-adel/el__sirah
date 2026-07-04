@@ -13,7 +13,7 @@
   
   <!-- Stylesheets -->
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="style-enhanced.css">
+  <link rel="stylesheet" href="style-enhanced.css?v=2">
     
 
     <!-- Tailwind CSS CDN -->
@@ -64,9 +64,6 @@
   <!-- Reading Progress -->
   <div id="reading-progress"></div>
 
-  <div id="reading-progress"></div>
-
- 
   <nav>
     <div class="nav-logo" onclick="goTo('hero')">السيرة النبوية ﷺ</div>
     <div class="nav-links" id="navLinks">
@@ -92,9 +89,13 @@
   <!-- HERO SECTION -->
   <section id="hero">
     <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-bg-mesh"></div>
     <div class="hero-grid-lines"></div>
     <div class="hero-stars"></div>
+    <div class="hero-moon" aria-hidden="true">
+   
+    </div>
     
     <!-- SVG Islamic Ornaments -->
     <div class="hero-ornament" style="top:10%; right:5%;">
@@ -187,13 +188,13 @@
       </div>
 
       <!-- Search & Sort -->
-      <div class="videos-controls reveal scale">
+      <div  class="videos-controls reveal scale">
         <div class="videos-search-wrap">
           <svg class="videos-search-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input
+          <input style="color:black"
             type="text"
             id="videos-local-search"
             class="search-box videos-search-input"
@@ -201,14 +202,14 @@
             aria-label="بحث في الحلقات"
           />
         </div>
-        <select id="videos-local-sort" class="filter-select" aria-label="ترتيب الحلقات">
-          <option value="asc">ترتيب تصاعدي (من المقدمة)</option>
+        <select style="color:black" id="videos-local-sort" class="filter-select" aria-label="ترتيب الحلقات">
+          <option  value="asc">ترتيب تصاعدي (من المقدمة)</option>
           <option value="desc">ترتيب تنازلي (الأحدث أولاً)</option>
         </select>
       </div>
 
       <!-- Sync status -->
-      <div id="elkott-sync-status" class="videos-sync-status hidden">
+      <div  id="elkott-sync-status" class="videos-sync-status hidden">
         <span class="videos-sync-left">
           <span class="videos-sync-dot">✨</span>
           <span id="sync-status-text">يتم الآن مزامنة وجلب أحدث المشاهدات من يوتيوب...</span>
@@ -216,8 +217,8 @@
         <span class="videos-sync-live">مباشر</span>
       </div>
 
-      <!-- Cards Grid -->
-      <div id="elkott-video-grid" class="videos-grid">
+      <!-- Cards Grid --> 
+      <div  id="elkott-video-grid" class="videos-grid">
         <!-- Dynamic cards injected by JS -->
 
       </div>
@@ -260,7 +261,7 @@
         </div>
 
         <!-- Embedded Frame -->
-        <div class="aspect-video w-full bg-black relative">
+        <div   style="background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-mid) 100%);"  class="aspect-video w-full bg-black relative">
           <iframe 
             id="elkott-player-iframe"
             src=""
@@ -314,7 +315,7 @@
 
   <!-- LISTEN SECTION -->
   <section id="listen" class="pattern-bg">
-    <div class="container reveal">
+    <div  class="container reveal">
       <div class="section-header">
         <div class="section-badge">الصوتيات</div>
         <h2 class="section-title text-gold">إذاعات السيرة والقرآن</h2>

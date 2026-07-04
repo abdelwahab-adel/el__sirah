@@ -78,6 +78,8 @@ function setupParallax() {
   if (!hero) return;
   const ornaments = hero.querySelectorAll('.hero-ornament');
   const content   = hero.querySelector('.hero-content');
+  const bg        = hero.querySelector('.hero-bg');
+  const moon      = hero.querySelector('.hero-moon');
 
   let ticking = false;
   window.addEventListener('scroll', () => {
@@ -85,6 +87,8 @@ function setupParallax() {
     requestAnimationFrame(() => {
       const scrollY = window.scrollY;
       if (scrollY < window.innerHeight * 1.5) {
+        if (bg) bg.style.transform = `translateY(${scrollY * 0.35}px) scale(1.08)`;
+        if (moon) moon.style.transform = `translateY(${scrollY * 0.12}px)`;
         ornaments.forEach((o, i) => {
           const speed = 0.08 + i * 0.04;
           o.style.transform = `translateY(${scrollY * speed}px)`;
@@ -97,6 +101,26 @@ function setupParallax() {
       ticking = false;
     });
     ticking = true;
+  }, { passive: true });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 3b. BUTTON RIPPLE EFFECT
+// ═══════════════════════════════════════════════════════════════
+function setupRipples() {
+  const selector = '.btn-primary, .btn-secondary, .daily-btn, .daily-btn-share, .btn-load-more';
+  document.addEventListener('click', e => {
+    const btn = e.target.closest(selector);
+    if (!btn) return;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const size = Math.max(rect.width, rect.height);
+    ripple.className = 'ripple-effect';
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+    ripple.style.top  = (e.clientY - rect.top  - size / 2) + 'px';
+    btn.appendChild(ripple);
+    ripple.addEventListener('animationend', () => ripple.remove());
   }, { passive: true });
 }
 
@@ -248,15 +272,12 @@ window.SeerahShare = {
 // 11. DARK SECTIONS COLOR SYNC
 // ═══════════════════════════════════════════════════════════════
 function syncDarkSections(theme) {
-  // pattern-bg sections (listen, hadith)
-  const darkSections = document.querySelectorAll('.pattern-bg');
-  darkSections.forEach(s => {
-    if (theme === 'dark') {
-      s.style.background = '#051a0a';
-    } else {
-      s.style.background = '';
-    }
-  });
+  // .pattern-bg sections (#listen, #hadith) are intentionally fixed-navy
+  // (background: var(--emerald)) in BOTH themes — their text (station
+  // names, hadith quotes, search boxes) is hardcoded white for that dark
+  // panel. Do not override their background here; clear any legacy
+  // inline override so the CSS variable takes effect.
+  document.querySelectorAll('.pattern-bg').forEach(s => { s.style.background = ''; });
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -349,6 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
   createHeroStars();
   setupParallax();
   animateOrnaments();
+  setupRipples();
 
   // Counters
   setupCounters();
@@ -375,5 +397,5 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', throttle(saveScrollPosition, 2000), { passive: true });
 
   console.log('%c✦ السيرة النبوية الشريفة ﷺ — v3.0 ✦', 'color:#D4AF37;font-family:serif;font-size:16px;font-weight:bold;');
-  console.log('%cمنصة إسلامية تفاعلية متكاملة', 'color:#1E7A4E;font-family:sans-serif;font-size:12px;');
+  console.log('%cمنصة إسلامية تفاعلية متكاملة', 'color:#a4adba;font-family:sans-serif;font-size:12px;');
 });

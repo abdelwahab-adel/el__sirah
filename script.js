@@ -338,7 +338,7 @@ function renderStations(list) {
     const playing = currentStation && currentStation.id === s.id;
     const waveHTML = playing ? `<div class="wave-bars"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div>` : `<div class="play-icon">▶</div>`;
     return `
-      <div class="station-card ${playing ? 'playing' : ''}" id="sc-${s.id}" onclick="playStation(${JSON.stringify(s).replace(/"/g,"'")})">
+      <div   class="station-card ${playing ? 'playing' : ''}" id="sc-${s.id}" onclick="playStation(${JSON.stringify(s).replace(/"/g,"'")})">
         <div class="station-cat">${s.category}</div>
         <div class="station-name">${s.name}</div>
         <div class="station-play">
@@ -1133,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Render loop
         grid.innerHTML = sliceToRender.map((ep, index) => {
           return `
-            <div 
+            <div   style="background: linear-gradient(135deg, var(--emerald) 0%, var(--emerald-mid) 100%); margin-left: 5px;"  
               class="relative bg-[#121318]/50 border border-white/5 rounded-2xl overflow-hidden shadow-2xl p-5 block group transition-all duration-300 transform cursor-pointer card-glow video-card-item"
               data-index="${index}"
               data-id="${ep.id}"

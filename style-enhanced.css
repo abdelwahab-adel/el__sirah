@@ -3,6 +3,71 @@
    التأثيرات المتقدمة والأنماط الإسلامية
    ═══════════════════════════════════════════════════════════════ */
 
+/* ─── Cinematic Hero Overlay (black + gold gradient + mist) ──── */
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,
+      rgba(4,8,13,0.55) 0%,
+      rgba(4,8,13,0.30) 30%,
+      rgba(4,8,13,0.55) 65%,
+      rgba(4,8,13,0.92) 100%),
+    linear-gradient(90deg,
+      rgba(4,8,13,0.45) 0%,
+      transparent 35%,
+      transparent 65%,
+      rgba(4,8,13,0.45) 100%),
+    radial-gradient(ellipse 60% 40% at 50% 35%,
+      rgba(212,175,55,0.10) 0%, transparent 70%);
+}
+.hero-bg-mesh { z-index: 1; }
+.hero-grid-lines { z-index: 1; }
+.hero-stars { z-index: 2; }
+.hero-ornament { z-index: 2; }
+.hero-content { z-index: 3; }
+
+/* ─── Glowing Crescent Moon ───────────────────────────────────── */
+.hero-moon {
+  position: absolute;
+  top: 8%; left: 10%;
+  width: clamp(70px, 9vw, 130px);
+  height: clamp(70px, 9vw, 130px);
+  z-index: 2;
+  filter: drop-shadow(0 0 22px rgba(244,210,122,0.55))
+          drop-shadow(0 0 46px rgba(212,175,55,0.30));
+  animation: moon-breathe 6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes moon-breathe {
+  0%, 100% { filter: drop-shadow(0 0 22px rgba(244,210,122,0.5)) drop-shadow(0 0 46px rgba(212,175,55,0.28)); }
+  50%      { filter: drop-shadow(0 0 32px rgba(244,210,122,0.75)) drop-shadow(0 0 60px rgba(212,175,55,0.4)); }
+}
+@media (max-width: 640px) {
+  .hero-moon { top: 6%; left: 6%; width: 60px; height: 60px; }
+}
+
+/* ─── Button Ripple Effect ────────────────────────────────────── */
+.btn-primary, .btn-secondary, .daily-btn, .daily-btn-share, .btn-load-more {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  transform: scale(0);
+  animation: ripple-anim 0.6s ease-out;
+  pointer-events: none;
+}
+[data-theme] .btn-secondary .ripple-effect,
+.hero-btns .btn-primary .ripple-effect {
+  background: rgba(255,255,255,0.4);
+}
+@keyframes ripple-anim {
+  to { transform: scale(2.6); opacity: 0; }
+}
+
 /* ─── Arabesque / Islamic Geometric Patterns via CSS ─────────── */
 .arabesque-top {
   position: relative;
@@ -60,60 +125,125 @@
   border-radius: var(--radius-lg);
 }
 
-/* ─── Dark Mode Enhanced Styles ──────────────────────────────── */
+/* ─── "Dark Mode" Toggle = Bright/Light Theme ───────────────── */
 [data-theme="dark"] .tl-card {
-  background: rgba(13,40,22,0.95);
-  border-color: rgba(212,175,55,0.20);
+  background: rgba(255,255,255,0.92);
+  border-color: rgba(212,175,55,0.30);
 }
 [data-theme="dark"] .tl-card p { color: var(--text-muted); }
 [data-theme="dark"] .tl-dot {
-  box-shadow: 0 0 0 5px var(--midnight), var(--shadow-gold);
+  box-shadow: 0 0 0 5px var(--ivory), var(--shadow-gold);
 }
 
 [data-theme="dark"] .ghaz-card {
-  background: rgba(10,30,17,0.96);
+  background: rgba(255,255,255,0.94);
 }
 [data-theme="dark"] .ghaz-val { color: var(--text-muted); }
 
 [data-theme="dark"] .shamail-card {
-  background: rgba(10,28,16,0.96);
+  background: rgba(255,255,255,0.94);
 }
 
 [data-theme="dark"] .sahabi-card {
-  background: rgba(10,28,16,0.96);
+  background: rgba(255,255,255,0.94);
 }
 [data-theme="dark"] .sahabi-desc { color: var(--text-muted); }
 
 [data-theme="dark"] .daily-card {
-  background: rgba(12,35,20,0.98);
-  border-color: rgba(212,175,55,0.22);
+  background: rgba(255,255,255,0.96);
+  border-color: rgba(212,175,55,0.30);
 }
 [data-theme="dark"] .daily-text { color: var(--text-dark); }
 
 [data-theme="dark"] .search-big {
-  background: rgba(12,35,20,0.96);
+  background: rgba(255,255,255,0.94);
 }
 [data-theme="dark"] .search-big input { color: var(--text-dark); }
 
 [data-theme="dark"] .result-item {
-  background: rgba(12,35,20,0.96);
+  background: rgba(255,255,255,0.94);
 }
-[data-theme="dark"] .result-text { color: var(--text-muted); }
+[data-theme="dark"] .result-text { color: var(--text-mid); }
 
 [data-theme="dark"] footer {
-  background: linear-gradient(160deg, #02090503 0%, #040e07 100%);
+  background: linear-gradient(160deg, #101820 0%, #07111D 100%);
 }
 
-[data-theme="dark"] nav {
-  background: rgba(3,10,5,0.99);
-  border-bottom-color: rgba(212,175,55,0.18);
+/* nav stays a fixed dark glass bar in both themes — nav-links text is
+   hardcoded white, and nav.scrolled is already hardcoded dark navy,
+   so the resting nav must match rather than switch to a bright bg. */
+
+[data-theme="dark"] #section-badge { color: var(--gold-dark); }
+
+/* #listen — light-mode ("الوضع المضيء") background fix only.
+   The dark/night theme (default, [data-theme="light"]) is untouched:
+   #listen keeps its fixed dark navy "night radio" look there.
+   In bright mode ([data-theme="dark"]) we switch its panels to a
+   light, cream-toned background and adjust text so it stays readable. */
+[data-theme="dark"] #listen {
+  background: var(--ivory-mid);
 }
-
-[data-theme="dark"] #section-badge { color: var(--gold-light); }
-
-[data-theme="dark"] #listen { background: #062112; }
+[data-theme="dark"] #listen .section-sub {
+  color: var(--text-muted);
+}
+[data-theme="dark"] .listen-controls {
+  background: rgba(16,24,32,0.05);
+  border-color: rgba(212,175,55,0.25);
+}
+[data-theme="dark"] .search-box,
+[data-theme="dark"] .filter-select {
+  background: rgba(255,255,255,0.9);
+  color: var(--text-dark);
+  border-color: rgba(212,175,55,0.3);
+}
+[data-theme="dark"] .search-box::placeholder {
+  color: var(--text-light);
+}
+[data-theme="dark"] .filter-select option {
+  background: #fff;
+  color: var(--text-dark);
+}
 [data-theme="dark"] .station-card {
-  background: rgba(255,255,255,0.05);
+  background: rgba(16,24,32,0.04);
+  border-color: rgba(212,175,55,0.20);
+}
+[data-theme="dark"] .station-card:hover {
+  background: rgba(16,24,32,0.08);
+}
+[data-theme="dark"] .station-card.playing {
+  background: rgba(212,175,55,0.16);
+}
+[data-theme="dark"] .station-name {
+  color: var(--text-dark);
+}
+[data-theme="dark"] .station-play {
+  color: var(--text-muted);
+}
+
+/* #hadith — same light-mode-only background fix. In the default
+   dark/night theme this section is untouched. In bright mode the
+   hadith cards switch from a translucent-white-on-dark panel to a
+   proper light card, with matching readable text. */
+[data-theme="dark"] #hadith .section-sub {
+  color: var(--text-muted);
+}
+[data-theme="dark"] .hadith-card {
+  background: rgba(255,255,255,0.94);
+  border-color: rgba(212,175,55,0.30);
+}
+[data-theme="dark"] .hadith-card:hover {
+  background: #fff;
+  border-color: rgba(212,175,55,0.5);
+}
+[data-theme="dark"] .hadith-text {
+  color: var(--text-dark);
+}
+[data-theme="dark"] .hadith-rawi {
+  color: var(--gold-dark);
+}
+[data-theme="dark"] .hadith-source {
+  color: var(--gold-dark);
+  background: rgba(212,175,55,0.16);
 }
 
 /* ─── Scroll Reveal Animations ───────────────────────────────── */
@@ -141,8 +271,8 @@
 
 /* ─── Gold Text Decoration ───────────────────────────────────── */
 .text-gold { color: var(--gold); }
-.text-emerald { color: var(--emerald); }
-[data-theme="dark"] .text-emerald { color: var(--emerald-light); }
+.text-emerald { color: var(--gold-light); }
+[data-theme="dark"] .text-emerald { color: var(--gold-dark); }
 
 /* ─── Section Ornament Dividers ─────────────────────────────── */
 .ornament-divider {
@@ -206,7 +336,7 @@
   position: absolute;
   top: -12px; right: 1.5rem;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-  color: #0a1a08;
+  color: #0b1420;
   font-size: 0.7rem;
   font-weight: 700;
   padding: 4px 14px;
@@ -273,7 +403,7 @@
 #reading-mode-overlay {
   display: none;
   position: fixed; inset: 0; z-index: 800;
-  background: rgba(7,26,16,0.55);
+  background: rgba(7,17,29,0.55);
   backdrop-filter: blur(4px);
   animation: fadeIn 0.3s ease;
 }
@@ -295,7 +425,7 @@
   border-radius: 50%;
   background: linear-gradient(135deg, var(--gold), var(--gold-dark));
   border: none;
-  color: #0a1a08;
+  color: #0b1420;
   font-size: 1.2rem;
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
@@ -407,19 +537,19 @@
 }
 [data-theme="dark"] .modal-desc { color: var(--text-muted); }
 .modal-quote {
-  background: rgba(13,74,47,0.06);
+  background: rgba(212,175,55,0.08);
   border-right: 3px solid var(--gold);
   padding: 1rem 1.2rem;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-family: 'Amiri', serif;
   font-size: 1rem;
-  color: var(--emerald);
+  color: var(--gold-light);
   line-height: 1.8;
   margin-bottom: 1.5rem;
 }
 [data-theme="dark"] .modal-quote {
-  background: rgba(212,175,55,0.06);
-  color: var(--gold-light);
+  background: rgba(212,175,55,0.12);
+  color: var(--gold-dark);
 }
 .modal-close {
   width: 100%;
@@ -436,7 +566,7 @@
 }
 .modal-close:hover { background: var(--emerald-light); }
 [data-theme="dark"] .modal-card {
-  background: rgba(10,28,16,0.98);
+  background: rgba(255,255,255,0.97);
 }
 
 /* ─── Stats Counter Animation ──────────────────────────────── */
