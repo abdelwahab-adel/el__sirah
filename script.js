@@ -474,7 +474,7 @@ function buildShamail() {
   if (!grid) return;
   grid.innerHTML = shamailData.map((s, i) => `
     <div class="shamail-card" style="transition-delay:${(i * 0.06).toFixed(2)}s">
-      <div class="shamail-icon">${s.icon}</div>
+      
       <h3>${s.title}</h3>
       <p>${s.desc}</p>
     </div>`).join('');
